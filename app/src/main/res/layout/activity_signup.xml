@@ -24,16 +24,16 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="Sign Up"
         android:layout_below="@id/et_password"
         android:gravity="center"
-        android:id="@+id/btn_login"/>
+        android:id="@+id/btn_signup"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_login"
-        android:id="@+id/tv_switch_signup"
-        android:text="New user? Create an account..."/>
+        android:layout_below="@id/btn_signup"
+        android:id="@+id/tv_switch_login"
+        android:text="Already a user? Sign in..."/>
 
 </RelativeLayout>

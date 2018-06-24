@@ -1,5 +1,6 @@
 package com.jordangellatly.coopervision;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +37,15 @@ public class LoginActivity extends AppCompatActivity {
         mPassword = findViewById(R.id.et_password);
         mBtnLogin = findViewById(R.id.btn_login);
         mSwitchToSignup = findViewById(R.id.tv_switch_signup);
+        mSwitchToSignup.setClickable(true);
+
+        mSwitchToSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
 
