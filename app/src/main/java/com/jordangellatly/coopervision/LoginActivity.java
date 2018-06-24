@@ -63,6 +63,9 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Log.d(TAG, "onComplete: " + user.getDisplayName());
                             Toast.makeText(LoginActivity.this, "You have signed in", Toast.LENGTH_SHORT).show();
+
+                            //TODO add intent to move to list of chemicals
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
