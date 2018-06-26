@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -16,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class ListActivity extends AppCompatActivity {
 
     private static final String TAG = "ListActivity";
@@ -24,6 +28,7 @@ public class ListActivity extends AppCompatActivity {
     private DatabaseReference myRef;
 
     private Button btnGetData;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +36,12 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 
         btnGetData = findViewById(R.id.btn_get_data);
+        listView = findViewById(R.id.list_view);
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("masterSheet");
+
+        final ArrayList<String> chemicals = new ArrayList<>();
 
         btnGetData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,11 +61,20 @@ public class ListActivity extends AppCompatActivity {
 //                    }
 //                });
 
-                myRef.orderByChild("Material Name").addChildEventListener(new ChildEventListener() {
+                myRef.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        String chemical = dataSnapshot.getValue().toString();
-                        Log.d(TAG, "onChildAdded: " + dataSnapshot.getKey() + " " + chemical);
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            String chemical = ds.getValue().toString();
+//                            Log.d(TAG, "onChildAdded: " + ds.getKey() + " " + chemical);
+                            if (ds.getKey().equals("8")) {
+                                Log.d(TAG, "onChildAdded: " + chemical);
+                                chemicals.add(chemical);
+                            }
+                        }
+                        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(ListActivity.this, android.R.layout.simple_list_item_1, chemicals);
+                        listView.setAdapter(itemsAdapter);
+
                     }
 
                     @Override
@@ -80,6 +97,8 @@ public class ListActivity extends AppCompatActivity {
 
                     }
                 });
+
+
 
             }
         });

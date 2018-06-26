@@ -13,4 +13,13 @@
         android:text="Get Data"
         android:id="@+id/btn_get_data"/>
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btn_get_data"
+        android:id="@+id/list_view">
+
+
+    </ListView>
+
 </RelativeLayout>
