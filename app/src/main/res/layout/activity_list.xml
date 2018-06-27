@@ -7,10 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".ListActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar_search">
+
+    </android.support.v7.widget.Toolbar>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/list_view">
+        android:id="@+id/list_view"
+        android:layout_below="@id/toolbar_search">
 
     </ListView>
 
