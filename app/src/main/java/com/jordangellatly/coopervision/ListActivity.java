@@ -2,6 +2,7 @@ package com.jordangellatly.coopervision;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -91,13 +93,21 @@ public class ListActivity extends AppCompatActivity {
 
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(ListActivity.this, "You clicked on: " + chemicals.get(i), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_search, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         MenuItem mSearchMenuItem = menu.findItem(R.id.menu_toolbarsearch);
         SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
         searchView.setQueryHint("Enter Text");
