@@ -51,7 +51,7 @@ public class ListActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("masterSheet");
 
-        final ArrayList<String> chemicals = new ArrayList<>();
+        final ArrayList<String> names = new ArrayList<>();
         final ArrayList<String> locations = new ArrayList<>();
 
         myRef.addChildEventListener(new ChildEventListener() {
@@ -63,10 +63,10 @@ public class ListActivity extends AppCompatActivity {
                         locations.add(item);
                     }
                     if (ds.getKey().equals("8")) {
-                        chemicals.add(item);
+                        names.add(item);
                     }
                 }
-                itemsAdapter = new ArrayAdapter<String>(ListActivity.this, android.R.layout.simple_list_item_1, chemicals);
+                itemsAdapter = new ArrayAdapter<String>(ListActivity.this, android.R.layout.simple_list_item_1, names);
                 listView.setAdapter(itemsAdapter);
 
             }
@@ -95,7 +95,7 @@ public class ListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(ListActivity.this, "You clicked on: " + chemicals.get(i) + " and the location is: " + locations.get(i), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListActivity.this, "You clicked on: " + names.get(i) + " and the location is: " + locations.get(i), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ListActivity.this, DetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("index", i);
