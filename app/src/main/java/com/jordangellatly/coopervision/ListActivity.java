@@ -1,13 +1,11 @@
 package com.jordangellatly.coopervision;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,9 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -27,7 +23,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -57,15 +52,18 @@ public class ListActivity extends AppCompatActivity {
         myRef = database.getReference("masterSheet");
 
         final ArrayList<String> chemicals = new ArrayList<>();
+        final ArrayList<String> locations = new ArrayList<>();
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String chemical = ds.getValue().toString();
+                    String item = ds.getValue().toString();
+                    if (ds.getKey().equals("1")) {
+                        locations.add(item);
+                    }
                     if (ds.getKey().equals("8")) {
-                        Log.d(TAG, "onChildAdded: " + chemical);
-                        chemicals.add(chemical);
+                        chemicals.add(item);
                     }
                 }
                 itemsAdapter = new ArrayAdapter<String>(ListActivity.this, android.R.layout.simple_list_item_1, chemicals);
@@ -97,8 +95,12 @@ public class ListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(ListActivity.this, "You clicked on: " + chemicals.get(i), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListActivity.this, "You clicked on: " + chemicals.get(i) + " and the location is: " + locations.get(i), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("index", i);
+                bundle.putStringArrayList("locations", locations);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

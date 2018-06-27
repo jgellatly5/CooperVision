@@ -1,13 +1,35 @@
 package com.jordangellatly.coopervision;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity {
+
+    private TextView tvLocation;
+
+    private ArrayList<String> locations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        tvLocation = findViewById(R.id.tv_location);
+
+        Intent intent = getIntent();
+        Bundle extrasBundle = intent.getExtras();
+        if (!extrasBundle.isEmpty()) {
+            if (extrasBundle.containsKey("locations")) {
+                locations = extrasBundle.getStringArrayList("locations");
+            }
+            if (extrasBundle.containsKey("index")) {
+                int index = extrasBundle.getInt("index");
+                tvLocation.setText(locations.get(index));
+            }
+        }
     }
 }
