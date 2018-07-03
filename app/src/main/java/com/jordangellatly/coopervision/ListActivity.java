@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -33,16 +35,17 @@ public class ListActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
-    private ListView listView;
+    private RecyclerView chemicalList;
     private Toolbar tbMainSearch;
-    private ArrayAdapter<String> itemsAdapter;
+    private ArrayList<Chemical> chemicals;
+    private ChemicalAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        listView = findViewById(R.id.list_view);
+        chemicalList = findViewById(R.id.chemical_list);
         tbMainSearch = findViewById(R.id.toolbar_search);
         setSupportActionBar(tbMainSearch);
         ActionBar actionBar = getSupportActionBar();
@@ -66,9 +69,9 @@ public class ListActivity extends AppCompatActivity {
                         names.add(item);
                     }
                 }
-                itemsAdapter = new ArrayAdapter<String>(ListActivity.this, android.R.layout.simple_list_item_1, names);
-                listView.setAdapter(itemsAdapter);
-
+                adapter = new ChemicalAdapter(chemicals);
+                chemicalList.setAdapter(adapter);
+                chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
             }
 
             @Override
@@ -92,18 +95,18 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(ListActivity.this, "You clicked on: " + names.get(i) + " and the location is: " + locations.get(i), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ListActivity.this, DetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("index", i);
-                bundle.putStringArrayList("locations", locations);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(ListActivity.this, "You clicked on: " + names.get(i) + " and the location is: " + locations.get(i), Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("index", i);
+//                bundle.putStringArrayList("locations", locations);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -123,7 +126,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String s) {
                 Log.d(TAG, "onQueryTextChange: newText: " + s);
-                itemsAdapter.getFilter().filter(s);
+//                adapter.getFilter().filter(s);
                 return true;
             }
         });

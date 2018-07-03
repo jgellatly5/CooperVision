@@ -1,6 +1,157 @@
 package com.jordangellatly.coopervision;
 
 public class Chemical {
+    public String getChemicalArea() {
+        return chemicalArea;
+    }
+
+    public void setChemicalArea(String chemicalArea) {
+        this.chemicalArea = chemicalArea;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getPurchaseOrder() {
+        return purchaseOrder;
+    }
+
+    public void setPurchaseOrder(String purchaseOrder) {
+        this.purchaseOrder = purchaseOrder;
+    }
+
+    public String getLotOrder() {
+        return lotOrder;
+    }
+
+    public void setLotOrder(String lotOrder) {
+        this.lotOrder = lotOrder;
+    }
+
+    public String getReceiveDate() {
+        return receiveDate;
+    }
+
+    public void setReceiveDate(String receiveDate) {
+        this.receiveDate = receiveDate;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public String getChemicalOwner() {
+        return chemicalOwner;
+    }
+
+    public void setChemicalOwner(String chemicalOwner) {
+        this.chemicalOwner = chemicalOwner;
+    }
+
+    public String getCasNumber() {
+        return casNumber;
+    }
+
+    public void setCasNumber(String casNumber) {
+        this.casNumber = casNumber;
+    }
+
+    public String getMaterialName() {
+        return materialName;
+    }
+
+    public void setMaterialName(String materialName) {
+        this.materialName = materialName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getCatalogNumber() {
+        return catalogNumber;
+    }
+
+    public void setCatalogNumber(String catalogNumber) {
+        this.catalogNumber = catalogNumber;
+    }
+
+    public String getBottleCount() {
+        return bottleCount;
+    }
+
+    public void setBottleCount(String bottleCount) {
+        this.bottleCount = bottleCount;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public String getPhysicalState() {
+        return physicalState;
+    }
+
+    public void setPhysicalState(String physicalState) {
+        this.physicalState = physicalState;
+    }
+
+    public String getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(String temperature) {
+        this.temperature = temperature;
+    }
+
+    public String getPressure() {
+        return pressure;
+    }
+
+    public void setPressure(String pressure) {
+        this.pressure = pressure;
+    }
+
+    public String getContainerType() {
+        return containerType;
+    }
+
+    public void setContainerType(String containerType) {
+        this.containerType = containerType;
+    }
 
     public String chemicalArea,
             location,
