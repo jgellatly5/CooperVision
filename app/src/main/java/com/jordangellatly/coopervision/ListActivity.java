@@ -37,7 +37,6 @@ public class ListActivity extends AppCompatActivity {
 
     private RecyclerView chemicalList;
     private Toolbar tbMainSearch;
-    private ArrayList<Chemical> chemicals;
     private ChemicalAdapter adapter;
 
     @Override
@@ -54,20 +53,26 @@ public class ListActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("masterSheet");
 
-        final ArrayList<String> names = new ArrayList<>();
-        final ArrayList<String> locations = new ArrayList<>();
+        final ArrayList<Chemical> chemicals = new ArrayList<>();
+//        final ArrayList<String> names = new ArrayList<>();
+//        final ArrayList<String> locations = new ArrayList<>();
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    Chemical chemical = new Chemical();
+//                    Log.d(TAG, "onChildAdded: " + chemical.toString());
+
                     String item = ds.getValue().toString();
                     if (ds.getKey().equals("1")) {
-                        locations.add(item);
+                        chemical.setLocation(item);
                     }
                     if (ds.getKey().equals("8")) {
-                        names.add(item);
+                        chemical.setMaterialName(item);
                     }
+                    chemicals.add(chemical);
                 }
                 adapter = new ChemicalAdapter(chemicals);
                 chemicalList.setAdapter(adapter);

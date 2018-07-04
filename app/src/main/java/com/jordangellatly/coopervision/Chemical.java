@@ -173,6 +173,10 @@ public class Chemical {
             pressure,
             containerType;
 
+    public Chemical() {
+
+    }
+
     public Chemical(String chemicalArea, String location, String purchaseOrder, String lotOrder, String receiveDate, String expirationDate, String chemicalOwner, String casNumber, String materialName, String type, String manufacturer, String catalogNumber, String bottleCount, String size, String comments, String physicalState, String temperature, String pressure, String containerType) {
         this.chemicalArea = chemicalArea;
         this.location = location;
