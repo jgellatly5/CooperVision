@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -46,62 +47,18 @@ public class ListActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("chemicals").child("1");
+        myRef = database.getReference("chemicals");
 
-        final ArrayList<Chemicals> chemicals = new ArrayList<>();
-        final ArrayList<String> names = new ArrayList<>();
-        final ArrayList<String> locations = new ArrayList<>();
+        final ArrayList<Chemicals> chemicalArrayList = new ArrayList<>();
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Chemicals chemicals = dataSnapshot.getValue(Chemicals.class);
-                Log.d(TAG, "onDataChange: chemicals: " + chemicals);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-//        myRef.addChildEventListener(new ChildEventListener() {
+//        myRef.addValueEventListener(new ValueEventListener() {
 //            @Override
-//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//
-////                    Chemicals chemicals = new Chemicals();
-//                    Chemicals chemicals = ds.getValue(Chemicals.class);
-//                    Log.d(TAG, "onChildAdded: chemicals: " + chemicals.toString());
-//
-////                    String item = ds.getValue().toString();
-////                    Log.d(TAG, "onChildAdded: item: " + item);
-////                    if (ds.getKey().equals("1")) {`
-//////                        locations.add(item);
-////                        chemicals.setLocation(item);
-////                    }
-//////                    if (ds.getKey().equals("8")) {
-//////                        names.add(item);
-//////                    }
-////
-//////                    chemicals.setMaterialName(names.get(i));
-////                    chemicals.add(chemicals);
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+//                    Chemicals chemicals = dataSnapshot.getValue(Chemicals.class);
+//                    chemicalArrayList.add(chemicals);
+//                    Log.d(TAG, "onDataChange: chemicals: " + chemicalArrayList);
 //                }
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
 //            }
 //
 //            @Override
@@ -110,8 +67,35 @@ public class ListActivity extends AppCompatActivity {
 //            }
 //        });
 
-        Log.d(TAG, "onChildAdded: chemicalList:" + chemicals.toString());
-        adapter = new ChemicalAdapter(chemicals);
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Chemicals chemicals = dataSnapshot.getValue(Chemicals.class);
+                chemicalArrayList.add(chemicals);
+                Log.d(TAG, "onChildAdded: chemicals: " + chemicals.toString());
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        adapter = new ChemicalAdapter(chemicalArrayList);
         chemicalList.setHasFixedSize(true);
         chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
         chemicalList.setAdapter(adapter);

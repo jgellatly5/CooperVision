@@ -8,16 +8,14 @@ public class Chemicals {
             lotOrderNumber,
             manufacturer,
             materialName,
-            productCode,
             receiveDate,
-            size,
             type;
 
     public Chemicals() {
 
     }
 
-    public Chemicals(Long bottleCount, String casNumber, String expirationDate, String locationInLab, String lotOrderNumber, String manufacturer, String materialName, String productCode, String receiveDate, String size, String type) {
+    public Chemicals(Long bottleCount, String casNumber, String expirationDate, String locationInLab, String lotOrderNumber, String manufacturer, String materialName, String receiveDate, String type) {
         this.bottleCount = bottleCount;
         this.casNumber = casNumber;
         this.expirationDate = expirationDate;
@@ -25,9 +23,7 @@ public class Chemicals {
         this.lotOrderNumber = lotOrderNumber;
         this.manufacturer = manufacturer;
         this.materialName = materialName;
-        this.productCode = productCode;
         this.receiveDate = receiveDate;
-        this.size = size;
         this.type = type;
     }
 
@@ -87,28 +83,12 @@ public class Chemicals {
         this.materialName = materialName;
     }
 
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
-    }
-
     public String getReceiveDate() {
         return receiveDate;
     }
 
     public void setReceiveDate(String receiveDate) {
         this.receiveDate = receiveDate;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
     }
 
     public String getType() {
@@ -129,9 +109,7 @@ public class Chemicals {
                 ", lotOrderNumber='" + lotOrderNumber + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +
                 ", materialName='" + materialName + '\'' +
-                ", productCode='" + productCode + '\'' +
                 ", receiveDate='" + receiveDate + '\'' +
-                ", size='" + size + '\'' +
                 ", type='" + type + '\'' +
                 '}';
     }
