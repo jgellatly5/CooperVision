@@ -3,6 +3,7 @@ package com.jordangellatly.coopervision;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,11 @@ import java.util.List;
 
 public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHolder> {
 
-    private List<Chemical> mChemicals;
+    private static final String TAG = "ChemicalAdapter";
 
-    public ChemicalAdapter(List<Chemical> chemicals) {
+    private List<Chemicals> mChemicals;
+
+    public ChemicalAdapter(List<Chemicals> chemicals) {
         this.mChemicals = chemicals;
     }
 
@@ -27,7 +30,7 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
             super(itemView);
 
             mChemicalName = itemView.findViewById(R.id.chemical_name);
-            mChemicalLocation = itemView.findViewWithTag(R.id.chemical_location);
+            mChemicalLocation = itemView.findViewById(R.id.chemical_location);
         }
     }
 
@@ -45,10 +48,13 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ChemicalAdapter.ViewHolder holder, int position) {
-        Chemical chemical = mChemicals.get(position);
+        Chemicals chemicals = mChemicals.get(position);
+        Log.d(TAG, "onBindViewHolder: " + chemicals.toString());
 
         TextView chemicalName = holder.mChemicalName;
-        chemicalName.setText(chemical.getMaterialName());
+        TextView chemicalLocation = holder.mChemicalLocation;
+        chemicalName.setText(chemicals.getMaterialName());
+        chemicalLocation.setText(chemicals.getLocationInLab());
     }
 
     @Override

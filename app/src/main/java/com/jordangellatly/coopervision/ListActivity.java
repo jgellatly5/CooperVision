@@ -1,6 +1,5 @@
 package com.jordangellatly.coopervision;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,17 +13,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -51,47 +46,17 @@ public class ListActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("masterSheet");
+        myRef = database.getReference("chemicals").child("1");
 
-        final ArrayList<Chemical> chemicals = new ArrayList<>();
-//        final ArrayList<String> names = new ArrayList<>();
-//        final ArrayList<String> locations = new ArrayList<>();
+        final ArrayList<Chemicals> chemicals = new ArrayList<>();
+        final ArrayList<String> names = new ArrayList<>();
+        final ArrayList<String> locations = new ArrayList<>();
 
-        myRef.addChildEventListener(new ChildEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    Chemical chemical = new Chemical();
-//                    Log.d(TAG, "onChildAdded: " + chemical.toString());
-
-                    String item = ds.getValue().toString();
-                    if (ds.getKey().equals("1")) {
-                        chemical.setLocation(item);
-                    }
-                    if (ds.getKey().equals("8")) {
-                        chemical.setMaterialName(item);
-                    }
-                    chemicals.add(chemical);
-                }
-                adapter = new ChemicalAdapter(chemicals);
-                chemicalList.setAdapter(adapter);
-                chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Chemicals chemicals = dataSnapshot.getValue(Chemicals.class);
+                Log.d(TAG, "onDataChange: chemicals: " + chemicals);
             }
 
             @Override
@@ -99,6 +64,57 @@ public class ListActivity extends AppCompatActivity {
 
             }
         });
+
+//        myRef.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//
+////                    Chemicals chemicals = new Chemicals();
+//                    Chemicals chemicals = ds.getValue(Chemicals.class);
+//                    Log.d(TAG, "onChildAdded: chemicals: " + chemicals.toString());
+//
+////                    String item = ds.getValue().toString();
+////                    Log.d(TAG, "onChildAdded: item: " + item);
+////                    if (ds.getKey().equals("1")) {`
+//////                        locations.add(item);
+////                        chemicals.setLocation(item);
+////                    }
+//////                    if (ds.getKey().equals("8")) {
+//////                        names.add(item);
+//////                    }
+////
+//////                    chemicals.setMaterialName(names.get(i));
+////                    chemicals.add(chemicals);
+//                }
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        Log.d(TAG, "onChildAdded: chemicalList:" + chemicals.toString());
+        adapter = new ChemicalAdapter(chemicals);
+        chemicalList.setHasFixedSize(true);
+        chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+        chemicalList.setAdapter(adapter);
 
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
