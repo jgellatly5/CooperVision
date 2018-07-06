@@ -24,13 +24,11 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mChemicalName;
-        public TextView mChemicalLocation;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             mChemicalName = itemView.findViewById(R.id.chemical_name);
-            mChemicalLocation = itemView.findViewById(R.id.chemical_location);
         }
     }
 
@@ -52,9 +50,7 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
         Log.d(TAG, "onBindViewHolder: " + chemicals.toString());
 
         TextView chemicalName = holder.mChemicalName;
-        TextView chemicalLocation = holder.mChemicalLocation;
         chemicalName.setText(chemicals.getMaterialName());
-        chemicalLocation.setText(chemicals.getLocationInLab());
     }
 
     @Override

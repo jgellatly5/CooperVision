@@ -51,22 +51,6 @@ public class ListActivity extends AppCompatActivity {
 
         final ArrayList<Chemicals> chemicalArrayList = new ArrayList<>();
 
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot ds: dataSnapshot.getChildren()) {
-//                    Chemicals chemicals = dataSnapshot.getValue(Chemicals.class);
-//                    chemicalArrayList.add(chemicals);
-//                    Log.d(TAG, "onDataChange: chemicals: " + chemicalArrayList);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -100,7 +84,7 @@ public class ListActivity extends AppCompatActivity {
         chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
         chemicalList.setAdapter(adapter);
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        chemicalList.seton(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                Toast.makeText(ListActivity.this, "You clicked on: " + names.get(i) + " and the location is: " + locations.get(i), Toast.LENGTH_SHORT).show();
