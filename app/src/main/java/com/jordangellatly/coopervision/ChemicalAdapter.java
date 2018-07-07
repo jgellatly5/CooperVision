@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -24,11 +25,13 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mChemicalName;
+        public ImageView mImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             mChemicalName = itemView.findViewById(R.id.chemical_name);
+            mImage = itemView.findViewById(R.id.logo);
         }
     }
 
@@ -48,6 +51,13 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
     public void onBindViewHolder(@NonNull ChemicalAdapter.ViewHolder holder, int position) {
         Chemicals chemicals = mChemicals.get(position);
         Log.d(TAG, "onBindViewHolder: " + chemicals.toString());
+
+        if (position % 2 == 0) {
+            holder.mImage.setImageResource(R.drawable.cooper_drop_cyan);
+        }
+        if (position % 3 == 0) {
+            holder.mImage.setImageResource(R.drawable.cooper_drop_red);
+        }
 
         TextView chemicalName = holder.mChemicalName;
         chemicalName.setText(chemicals.getMaterialName());
