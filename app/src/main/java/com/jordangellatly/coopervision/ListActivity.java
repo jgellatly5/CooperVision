@@ -2,6 +2,7 @@ package com.jordangellatly.coopervision;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,6 +128,10 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
 
     @Override
     public void onChemicalSelected(Chemicals chemicals) {
-        Toast.makeText(this, "You clicked on: " + chemicals.getMaterialName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("chemical", Parcels.wrap(chemicals));
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

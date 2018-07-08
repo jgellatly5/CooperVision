@@ -7,14 +7,93 @@
     android:layout_height="match_parent"
     tools:context=".DetailActivity">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/cooper_drop_purple"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:id="@+id/tv_name"
+        android:text="Chemical Name"
+        android:textSize="20sp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
-        android:text="Hello Dave"
-        android:textSize="30sp"
-        android:id="@+id/tv_location"/>
+        android:layout_marginTop="200dp"/>
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_name"
+        android:layout_centerHorizontal="true"
+        android:text="Chemical Location"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_rec_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_location"
+        android:layout_centerHorizontal="true"
+        android:text="Received Date"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_exp_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_rec_date"
+        android:layout_centerHorizontal="true"
+        android:text="Exp Date"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_lot_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_exp_date"
+        android:layout_centerHorizontal="true"
+        android:text="Lot Order Number"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_bottle_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_lot_order"
+        android:layout_centerHorizontal="true"
+        android:text="Bottle Count"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_cas_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_bottle_count"
+        android:layout_centerHorizontal="true"
+        android:text="CAS Number"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_manufacturer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_cas_number"
+        android:layout_centerHorizontal="true"
+        android:text="Manufacturer"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_manufacturer"
+        android:layout_centerHorizontal="true"
+        android:text="Type"
+        android:textSize="20sp" />
 
 </RelativeLayout>

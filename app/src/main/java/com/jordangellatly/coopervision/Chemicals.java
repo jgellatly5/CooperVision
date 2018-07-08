@@ -1,5 +1,8 @@
 package com.jordangellatly.coopervision;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Chemicals {
     public Long bottleCount;
     public String casNumber,
