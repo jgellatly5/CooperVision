@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_name"
-        android:text="Chemical Name"
+        android:text="@string/chemical_name"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"/>
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_name"
         android:layout_centerHorizontal="true"
-        android:text="Chemical Location"
+        android:text="@string/chemical_location"
         android:textSize="20sp" />
 
     <TextView
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_location"
         android:layout_centerHorizontal="true"
-        android:text="Received Date"
+        android:text="@string/received_date"
         android:textSize="20sp" />
 
     <TextView
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_rec_date"
         android:layout_centerHorizontal="true"
-        android:text="Exp Date"
+        android:text="@string/exp_date"
         android:textSize="20sp" />
 
     <TextView
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_exp_date"
         android:layout_centerHorizontal="true"
-        android:text="Lot Order Number"
+        android:text="@string/lot_order_number"
         android:textSize="20sp" />
 
     <TextView
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_lot_order"
         android:layout_centerHorizontal="true"
-        android:text="Bottle Count"
+        android:text="@string/bottle_count"
         android:textSize="20sp" />
 
     <TextView
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_bottle_count"
         android:layout_centerHorizontal="true"
-        android:text="CAS Number"
+        android:text="@string/cas_number"
         android:textSize="20sp" />
 
     <TextView
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_cas_number"
         android:layout_centerHorizontal="true"
-        android:text="Manufacturer"
+        android:text="@string/manufacturer"
         android:textSize="20sp" />
 
 
@@ -93,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_manufacturer"
         android:layout_centerHorizontal="true"
-        android:text="Type"
+        android:text="@string/type"
         android:textSize="20sp" />
 
 </RelativeLayout>

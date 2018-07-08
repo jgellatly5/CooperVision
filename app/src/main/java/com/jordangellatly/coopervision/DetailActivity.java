@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity {
@@ -18,8 +20,6 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tvCasNumber;
     private TextView tvManufacturer;
     private TextView tvType;
-
-    private ArrayList<String> locations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +36,15 @@ public class DetailActivity extends AppCompatActivity {
         tvManufacturer = findViewById(R.id.tv_manufacturer);
         tvType = findViewById(R.id.tv_type);
 
-//        Intent intent = getIntent();
-//        Bundle extrasBundle = intent.getExtras();
-//        if (!extrasBundle.isEmpty()) {
-//            if (extrasBundle.containsKey("locations")) {
-//                locations = extrasBundle.getStringArrayList("locations");
-//            }
-//            if (extrasBundle.containsKey("index")) {
-//                int index = extrasBundle.getInt("index");
-//                tvLocation.setText(locations.get(index));
-//            }
-//        }
+        Chemicals chemicalFromIntent = Parcels.unwrap(getIntent().getParcelableExtra("chemical"));
+        tvName.setText(getResources().getString(R.string.chemical_name) + chemicalFromIntent.getMaterialName());
+        tvLocation.setText(getResources().getString(R.string.chemical_location) + chemicalFromIntent.getLocationInLab());
+        tvRecDate.setText(getResources().getString(R.string.received_date) + chemicalFromIntent.getReceiveDate());
+        tvExpDate.setText(getResources().getString(R.string.exp_date) + chemicalFromIntent.getExpirationDate());
+        tvLotOrder.setText(getResources().getString(R.string.lot_order_number) + chemicalFromIntent.getLotOrderNumber());
+        tvBottleCount.setText(getResources().getString(R.string.bottle_count) + chemicalFromIntent.getBottleCount().toString());
+        tvCasNumber.setText(getResources().getString(R.string.cas_number) + chemicalFromIntent.getCasNumber());
+        tvManufacturer.setText(getResources().getString(R.string.manufacturer) + chemicalFromIntent.getManufacturer());
+        tvType.setText(getResources().getString(R.string.type) + chemicalFromIntent.getType());
     }
 }
