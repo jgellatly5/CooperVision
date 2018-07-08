@@ -1,5 +1,7 @@
 package com.jordangellatly.coopervision;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity implements ChemicalAdapter.ChemicalAdapterListener {
 
     private static final String TAG = "ListActivity";
 
@@ -34,6 +38,7 @@ public class ListActivity extends AppCompatActivity {
     private RecyclerView chemicalList;
     private Toolbar tbMainSearch;
     private ChemicalAdapter adapter;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,8 @@ public class ListActivity extends AppCompatActivity {
 
         chemicalList = findViewById(R.id.chemical_list);
         tbMainSearch = findViewById(R.id.toolbar_search);
+        mProgressBar = findViewById(R.id.progress_bar);
+        mProgressBar.setVisibility(ProgressBar.VISIBLE);
         setSupportActionBar(tbMainSearch);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -51,12 +58,17 @@ public class ListActivity extends AppCompatActivity {
 
         final ArrayList<Chemicals> chemicalArrayList = new ArrayList<>();
 
+
+        chemicalList.setHasFixedSize(true);
+        chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+
+
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Chemicals chemicals = dataSnapshot.getValue(Chemicals.class);
                 chemicalArrayList.add(chemicals);
-                Log.d(TAG, "onChildAdded: chemicals: " + chemicals.toString());
+
             }
 
             @Override
@@ -79,47 +91,40 @@ public class ListActivity extends AppCompatActivity {
 
             }
         });
-        adapter = new ChemicalAdapter(chemicalArrayList);
-        chemicalList.setHasFixedSize(true);
-        chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+        adapter = new ChemicalAdapter(chemicalArrayList, ListActivity.this);
         chemicalList.setAdapter(adapter);
-
-//        chemicalList.seton(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(ListActivity.this, "You clicked on: " + names.get(i) + " and the location is: " + locations.get(i), Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(ListActivity.this, DetailActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("index", i);
-//                bundle.putStringArrayList("locations", locations);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
+        mProgressBar.setVisibility(ProgressBar.INVISIBLE);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_search, menu);
+        getMenuInflater().inflate(R.menu.menu_search, menu);
         MenuItem mSearchMenuItem = menu.findItem(R.id.menu_toolbarsearch);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
-        searchView.setQueryHint("Enter Text");
+        searchView.setQueryHint("Enter Chemical Name");
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 Log.d(TAG, "onQueryTextSubmit: query: " + s);
-                return true;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
                 Log.d(TAG, "onQueryTextChange: newText: " + s);
-//                adapter.getFilter().filter(s);
-                return true;
+                adapter.getFilter().filter(s);
+                return false;
             }
         });
-        Log.d(TAG, "onCreateOptionsMenu: mMenuSearchItem: " + mSearchMenuItem.getActionView());
         return true;
+    }
+
+    @Override
+    public void onChemicalSelected(Chemicals chemicals) {
+        Toast.makeText(this, "You clicked on: " + chemicals.getMaterialName(), Toast.LENGTH_SHORT).show();
     }
 }

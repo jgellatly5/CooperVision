@@ -7,31 +7,74 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHolder> {
+public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHolder> implements Filterable {
 
     private static final String TAG = "ChemicalAdapter";
 
     private List<Chemicals> mChemicals;
+    private List<Chemicals> mChemicalsFiltered;
+    private ChemicalAdapterListener listener;
 
-    public ChemicalAdapter(List<Chemicals> chemicals) {
-        this.mChemicals = chemicals;
+    public ChemicalAdapter(List<Chemicals> mChemicals, ChemicalAdapterListener listener) {
+        this.mChemicals = mChemicals;
+        this.mChemicalsFiltered = mChemicals;
+        this.listener = listener;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    mChemicalsFiltered = mChemicals;
+                } else {
+                    List<Chemicals> filteredList = new ArrayList<>();
+                    for (Chemicals row : mChemicals) {
+                        if (row.getMaterialName().toLowerCase().startsWith(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+                    mChemicalsFiltered = filteredList;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mChemicalsFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mChemicalsFiltered = (ArrayList<Chemicals>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView mChemicalName;
-        public ImageView mImage;
+        private TextView mChemicalName;
+        private ImageView mImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             mChemicalName = itemView.findViewById(R.id.chemical_name);
             mImage = itemView.findViewById(R.id.logo);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onChemicalSelected(mChemicalsFiltered.get(getAdapterPosition()));
+                }
+            });
         }
     }
 
@@ -49,14 +92,15 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ChemicalAdapter.ViewHolder holder, int position) {
-        Chemicals chemicals = mChemicals.get(position);
-        Log.d(TAG, "onBindViewHolder: " + chemicals.toString());
+        Chemicals chemicals = mChemicalsFiltered.get(position);
+        Log.d(TAG, "onBindViewHolder: " + String.valueOf(position));
 
         if (position % 2 == 0) {
             holder.mImage.setImageResource(R.drawable.cooper_drop_cyan);
-        }
-        if (position % 3 == 0) {
+        } else if (position % 3 == 0) {
             holder.mImage.setImageResource(R.drawable.cooper_drop_red);
+        } else {
+            holder.mImage.setImageResource(R.drawable.cooper_drop_orange);
         }
 
         TextView chemicalName = holder.mChemicalName;
@@ -65,6 +109,10 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return mChemicals.size();
+        return mChemicalsFiltered.size();
+    }
+
+    public interface ChemicalAdapterListener {
+        void onChemicalSelected(Chemicals chemicals);
     }
 }
