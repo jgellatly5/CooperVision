@@ -1,8 +1,13 @@
 package com.jordangellatly.coopervision;
 
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +32,8 @@ public class DetailActivity extends AppCompatActivity {
     private TextView btnDelete;
     private TextView btnRequestPurchase;
 
+    private Toolbar tbDetail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +49,15 @@ public class DetailActivity extends AppCompatActivity {
         tvManufacturer = findViewById(R.id.tv_manufacturer_value);
         tvType = findViewById(R.id.tv_type_value);
 
-        btnEdit = findViewById(R.id.btn_edit);
-        btnDelete = findViewById(R.id.btn_delete);
-        btnRequestPurchase = findViewById(R.id.btn_request);
+//        btnEdit = findViewById(R.id.btn_edit);
+//        btnDelete = findViewById(R.id.btn_delete);
+//        btnRequestPurchase = findViewById(R.id.btn_request);
+
+        tbDetail = findViewById(R.id.toolbar_detail);
+        setSupportActionBar(tbDetail);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("");
 
         Chemicals chemicalFromIntent = Parcels.unwrap(getIntent().getParcelableExtra("chemical"));
         tvName.setText(chemicalFromIntent.getMaterialName());
@@ -57,25 +70,55 @@ public class DetailActivity extends AppCompatActivity {
         tvManufacturer.setText(chemicalFromIntent.getManufacturer());
         tvType.setText(chemicalFromIntent.getType());
 
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(DetailActivity.this, "Edit this item.", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        btnEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(DetailActivity.this, "Edit this item.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        btnDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(DetailActivity.this, "Delete this item.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        btnRequestPurchase.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(DetailActivity.this, "A request to purchase this chemical has been made.", Toast.LENGTH_SHORT).show();
+//                finish();
+//            }
+//        });
+    }
 
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(DetailActivity.this, "Delete this item.", Toast.LENGTH_SHORT).show();
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.detail_edit:
+                Toast.makeText(this, "Edit this item.", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.detail_remove:
+                Toast.makeText(this, "Remove this item.", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.detail_request:
+                Toast.makeText(this, "Request purhcase.", Toast.LENGTH_SHORT).show();
+                finish();
+                break;
+            default:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-        btnRequestPurchase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(DetailActivity.this, "Request purchase order.", Toast.LENGTH_SHORT).show();
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

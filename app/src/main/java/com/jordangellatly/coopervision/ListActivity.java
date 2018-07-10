@@ -53,25 +53,20 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         mProgressBar = findViewById(R.id.progress_bar);
         mProgressBar.setVisibility(ProgressBar.VISIBLE);
         setSupportActionBar(tbMainSearch);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("chemicals");
 
         final ArrayList<Chemicals> chemicalArrayList = new ArrayList<>();
 
-
         chemicalList.setHasFixedSize(true);
         chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
-
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Chemicals chemicals = dataSnapshot.getValue(Chemicals.class);
                 chemicalArrayList.add(chemicals);
-
             }
 
             @Override
