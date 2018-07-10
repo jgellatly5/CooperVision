@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="detailTableTextSize">15sp</dimen>
-    <dimen name="paddingTable">5dp</dimen>
+    <dimen name="detailTableTextSize">18sp</dimen>
+    <dimen name="paddingTable">2dp</dimen>
 </resources>

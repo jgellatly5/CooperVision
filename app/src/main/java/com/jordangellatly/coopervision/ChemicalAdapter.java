@@ -18,6 +18,7 @@ import java.util.List;
 public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHolder> implements Filterable {
 
     private static final String TAG = "ChemicalAdapter";
+    public static int colorChoice;
 
     private List<Chemicals> mChemicals;
     private List<Chemicals> mChemicalsFiltered;
@@ -93,16 +94,23 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ChemicalAdapter.ViewHolder holder, int position) {
         Chemicals chemicals = mChemicalsFiltered.get(position);
-        Log.d(TAG, "onBindViewHolder: " + String.valueOf(position));
 
-        if (position % 2 == 0) {
-            holder.mImage.setImageResource(R.drawable.cooper_drop_cyan);
-        } else if (position % 3 == 0) {
-            holder.mImage.setImageResource(R.drawable.cooper_drop_red);
-        } else {
-            holder.mImage.setImageResource(R.drawable.cooper_drop_orange);
+        int length = 4;
+        colorChoice = position % length;
+        switch (colorChoice) {
+            case 0:
+                holder.mImage.setImageResource(R.drawable.cooper_drop_orange);
+                break;
+            case 1:
+                holder.mImage.setImageResource(R.drawable.cooper_drop_cyan);
+                break;
+            case 2:
+                holder.mImage.setImageResource(R.drawable.cooper_drop_red);
+                break;
+            case 3:
+                holder.mImage.setImageResource(R.drawable.cooper_drop_purple);
+                break;
         }
-
         TextView chemicalName = holder.mChemicalName;
         chemicalName.setText(chemicals.getMaterialName());
     }
@@ -114,5 +122,9 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
 
     public interface ChemicalAdapterListener {
         void onChemicalSelected(Chemicals chemicals);
+    }
+
+    public static int getColor() {
+        return colorChoice;
     }
 }

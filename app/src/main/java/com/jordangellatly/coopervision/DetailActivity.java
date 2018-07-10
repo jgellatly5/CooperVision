@@ -16,6 +16,8 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class DetailActivity extends AppCompatActivity {
 
     private TextView tvLocation;
@@ -27,6 +29,8 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tvCasNumber;
     private TextView tvManufacturer;
     private TextView tvType;
+
+    private CircleImageView circleImageView;
 
     private TextView btnEdit;
     private TextView btnDelete;
@@ -49,9 +53,23 @@ public class DetailActivity extends AppCompatActivity {
         tvManufacturer = findViewById(R.id.tv_manufacturer_value);
         tvType = findViewById(R.id.tv_type_value);
 
-//        btnEdit = findViewById(R.id.btn_edit);
-//        btnDelete = findViewById(R.id.btn_delete);
-//        btnRequestPurchase = findViewById(R.id.btn_request);
+        circleImageView = findViewById(R.id.image);
+        Bundle bundle = getIntent().getExtras();
+        int colorChoice = bundle.getInt("color");
+        switch (colorChoice) {
+            case 0:
+                circleImageView.setImageResource(R.drawable.cooper_drop_orange);
+                break;
+            case 1:
+                circleImageView.setImageResource(R.drawable.cooper_drop_cyan);
+                break;
+            case 2:
+                circleImageView.setImageResource(R.drawable.cooper_drop_red);
+                break;
+            case 3:
+                circleImageView.setImageResource(R.drawable.cooper_drop_purple);
+                break;
+        }
 
         tbDetail = findViewById(R.id.toolbar_detail);
         setSupportActionBar(tbDetail);
@@ -70,27 +88,6 @@ public class DetailActivity extends AppCompatActivity {
         tvManufacturer.setText(chemicalFromIntent.getManufacturer());
         tvType.setText(chemicalFromIntent.getType());
 
-//        btnEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(DetailActivity.this, "Edit this item.", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        btnDelete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(DetailActivity.this, "Delete this item.", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        btnRequestPurchase.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(DetailActivity.this, "A request to purchase this chemical has been made.", Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-//        });
     }
 
     @Override

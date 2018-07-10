@@ -13,7 +13,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignupActivity"></activity>
-        <activity android:name=".ListActivity">
+        <activity
+            android:name=".ListActivity"
+            android:theme="@style/ListActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

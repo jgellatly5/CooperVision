@@ -43,6 +43,8 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
     private ChemicalAdapter adapter;
     private ProgressBar mProgressBar;
 
+    final ArrayList<Chemicals> chemicalArrayList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +58,6 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("chemicals");
-
-        final ArrayList<Chemicals> chemicalArrayList = new ArrayList<>();
 
         chemicalList.setHasFixedSize(true);
         chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
@@ -107,13 +107,11 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                Log.d(TAG, "onQueryTextSubmit: query: " + s);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Log.d(TAG, "onQueryTextChange: newText: " + s);
                 adapter.getFilter().filter(s);
                 return false;
             }
@@ -125,6 +123,9 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
     public void onChemicalSelected(Chemicals chemicals) {
         Intent intent = new Intent(ListActivity.this, DetailActivity.class);
         Bundle bundle = new Bundle();
+        int length = 4;
+        int colorChoice = chemicalArrayList.indexOf(chemicals) % length;
+        bundle.putInt("color", colorChoice);
         bundle.putParcelable("chemical", Parcels.wrap(chemicals));
         intent.putExtras(bundle);
         startActivity(intent);
