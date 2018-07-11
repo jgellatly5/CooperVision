@@ -1,7 +1,9 @@
 package com.jordangellatly.coopervision;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,9 +40,13 @@ public class DetailActivity extends AppCompatActivity {
 
     private Toolbar tbDetail;
 
+    private Bundle bundle;
+    private int colorChoice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setDetailTheme();
         setContentView(R.layout.activity_detail);
 
         tvLocation = findViewById(R.id.tv_location_value);
@@ -53,29 +59,7 @@ public class DetailActivity extends AppCompatActivity {
         tvManufacturer = findViewById(R.id.tv_manufacturer_value);
         tvType = findViewById(R.id.tv_type_value);
 
-        circleImageView = findViewById(R.id.image);
-        Bundle bundle = getIntent().getExtras();
-        int colorChoice = bundle.getInt("color");
-        switch (colorChoice) {
-            case 0:
-                circleImageView.setImageResource(R.drawable.cooper_drop_orange);
-                break;
-            case 1:
-                circleImageView.setImageResource(R.drawable.cooper_drop_cyan);
-                break;
-            case 2:
-                circleImageView.setImageResource(R.drawable.cooper_drop_red);
-                break;
-            case 3:
-                circleImageView.setImageResource(R.drawable.cooper_drop_purple);
-                break;
-        }
-
-        tbDetail = findViewById(R.id.toolbar_detail);
-        setSupportActionBar(tbDetail);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("");
+        initToolbarColor();
 
         Chemicals chemicalFromIntent = Parcels.unwrap(getIntent().getParcelableExtra("chemical"));
         tvName.setText(chemicalFromIntent.getMaterialName());
@@ -88,6 +72,52 @@ public class DetailActivity extends AppCompatActivity {
         tvManufacturer.setText(chemicalFromIntent.getManufacturer());
         tvType.setText(chemicalFromIntent.getType());
 
+    }
+
+    private void initToolbarColor() {
+        tbDetail = findViewById(R.id.toolbar_detail);
+        setSupportActionBar(tbDetail);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("");
+        circleImageView = findViewById(R.id.image);
+        switch (colorChoice) {
+            case 0:
+                circleImageView.setImageResource(R.drawable.cooper_drop_orange);
+                tbDetail.setBackgroundColor(Color.parseColor("#e65100"));
+                break;
+            case 1:
+                circleImageView.setImageResource(R.drawable.cooper_drop_cyan);
+                tbDetail.setBackgroundColor(Color.parseColor("#00bcd4"));
+                break;
+            case 2:
+                circleImageView.setImageResource(R.drawable.cooper_drop_red);
+                tbDetail.setBackgroundColor(Color.parseColor("#e53935"));
+                break;
+            case 3:
+                circleImageView.setImageResource(R.drawable.cooper_drop_purple);
+                tbDetail.setBackgroundColor(Color.parseColor("#7b1fa2"));
+                break;
+        }
+    }
+
+    private void setDetailTheme() {
+        bundle = getIntent().getExtras();
+        colorChoice = bundle.getInt("color");
+        switch (colorChoice) {
+            case 0:
+                setTheme(R.style.OrangeTheme);
+                break;
+            case 1:
+                setTheme(R.style.CyanTheme);
+                break;
+            case 2:
+                setTheme(R.style.RedTheme);
+                break;
+            case 3:
+                setTheme(R.style.PurpleTheme);
+                break;
+        }
     }
 
     @Override
@@ -103,7 +133,7 @@ public class DetailActivity extends AppCompatActivity {
                 Toast.makeText(this, "Remove this item.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.detail_request:
-                Toast.makeText(this, "Request purhcase.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Request purchase.", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
             default:

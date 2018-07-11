@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:cardCornerRadius="8dp"
-    android:elevation="4dp"
-    android:layout_margin="4dp"
-    app:cardBackgroundColor="@color/cardBackground">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_detail"
@@ -17,11 +12,11 @@
         android:background="@color/colorPrimary">
 
         <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Details"-->
-            <!--android:gravity="center"-->
-            <!--android:textSize="20sp"/>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Details"-->
+        <!--android:gravity="center"-->
+        <!--android:textSize="20sp"/>-->
 
     </android.support.v7.widget.Toolbar>
 
@@ -29,74 +24,77 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".DetailActivity"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        tools:context=".DetailActivity">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:src="@drawable/cooper_drop_purple"
-            android:id="@+id/image"/>
+            android:src="@drawable/cooper_drop_purple" />
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:id="@+id/tv_name"
-            android:text="@string/chemical_name"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:gravity="center"
             android:layout_below="@id/image"
             android:layout_marginTop="10dp"
             android:autoSizeTextType="uniform"
-            android:textColor="@color/black"/>
+            android:gravity="center"
+            android:text="@string/chemical_name"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Edit"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textSize="20sp"-->
-            <!--android:layout_below="@id/tv_name"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginLeft="50dp"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:id="@+id/btn_edit"/>-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Edit"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textSize="20sp"-->
+        <!--android:layout_below="@id/tv_name"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginLeft="50dp"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:id="@+id/btn_edit"/>-->
 
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Delete"-->
-            <!--android:textStyle="bold"-->
-            <!--android:id="@+id/btn_delete"-->
-            <!--android:textSize="20sp"-->
-            <!--android:layout_below="@id/tv_name"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginRight="50dp"-->
-            <!--android:layout_alignParentRight="true"/>-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Delete"-->
+        <!--android:textStyle="bold"-->
+        <!--android:id="@+id/btn_delete"-->
+        <!--android:textSize="20sp"-->
+        <!--android:layout_below="@id/tv_name"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginRight="50dp"-->
+        <!--android:layout_alignParentRight="true"/>-->
 
         <TableLayout
+            android:id="@+id/table"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/table"
             android:layout_below="@id/image"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:layout_centerHorizontal="true">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TableRow>
+
                 <TextView
                     android:id="@+id/tv_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_name"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/chemical_location"
-                    android:textSize="@dimen/detailTableTextSize"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/chemical_location"
+                    android:textSize="@dimen/detailTableTextSize" />
 
                 <TextView
                     android:id="@+id/tv_location_value"
@@ -104,26 +102,27 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_name"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/chemical_location"
-                    android:textSize="@dimen/detailTableTextSize"
-                    android:layout_weight="1"
                     android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/chemical_location"
+                    android:textSize="@dimen/detailTableTextSize" />
             </TableRow>
 
             <TableRow>
+
                 <TextView
                     android:id="@+id/tv_rec_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_location"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/received_date"
                     android:layout_weight="1"
-                    android:textSize="@dimen/detailTableTextSize"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/received_date"
+                    android:textSize="@dimen/detailTableTextSize" />
 
                 <TextView
                     android:id="@+id/tv_rec_date_value"
@@ -131,27 +130,28 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_location"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/received_date"
-                    android:textSize="@dimen/detailTableTextSize"
-                    android:layout_weight="1"
                     android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/received_date"
+                    android:textSize="@dimen/detailTableTextSize" />
 
             </TableRow>
 
             <TableRow>
+
                 <TextView
                     android:id="@+id/tv_exp_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_rec_date"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/exp_date"
-                    android:textSize="@dimen/detailTableTextSize"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/exp_date"
+                    android:textSize="@dimen/detailTableTextSize" />
 
                 <TextView
                     android:id="@+id/tv_exp_date_value"
@@ -159,27 +159,28 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_rec_date"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/exp_date"
-                    android:textSize="@dimen/detailTableTextSize"
-                    android:layout_weight="1"
                     android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/exp_date"
+                    android:textSize="@dimen/detailTableTextSize" />
 
             </TableRow>
 
             <TableRow>
+
                 <TextView
                     android:id="@+id/tv_lot_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_exp_date"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/lot_order_number"
-                    android:textSize="@dimen/detailTableTextSize"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/lot_order_number"
+                    android:textSize="@dimen/detailTableTextSize" />
 
                 <TextView
                     android:id="@+id/tv_lot_order_value"
@@ -187,27 +188,28 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_exp_date"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/lot_order_number"
-                    android:textSize="@dimen/detailTableTextSize"
-                    android:layout_weight="1"
                     android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/lot_order_number"
+                    android:textSize="@dimen/detailTableTextSize" />
 
             </TableRow>
 
             <TableRow>
+
                 <TextView
                     android:id="@+id/tv_bottle_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_lot_order"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/bottle_count"
-                    android:textSize="@dimen/detailTableTextSize"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/bottle_count"
+                    android:textSize="@dimen/detailTableTextSize" />
 
                 <TextView
                     android:id="@+id/tv_bottle_count_value"
@@ -215,27 +217,28 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_lot_order"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/bottle_count"
-                    android:textSize="@dimen/detailTableTextSize"
-                    android:layout_weight="1"
                     android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/bottle_count"
+                    android:textSize="@dimen/detailTableTextSize" />
 
             </TableRow>
 
             <TableRow>
+
                 <TextView
                     android:id="@+id/tv_cas_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_bottle_count"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/cas_number"
-                    android:textSize="@dimen/detailTableTextSize"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/cas_number"
+                    android:textSize="@dimen/detailTableTextSize" />
 
                 <TextView
                     android:id="@+id/tv_cas_number_value"
@@ -243,28 +246,28 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_bottle_count"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/cas_number"
-                    android:textSize="@dimen/detailTableTextSize"
-                    android:layout_weight="1"
                     android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/cas_number"
+                    android:textSize="@dimen/detailTableTextSize" />
 
             </TableRow>
 
             <TableRow>
+
                 <TextView
                     android:id="@+id/tv_manufacturer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_cas_number"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/manufacturer"
-                    android:textSize="@dimen/detailTableTextSize"
                     android:layout_weight="1"
-                    android:paddingTop="@dimen/paddingTable"
                     android:paddingBottom="@dimen/paddingTable"
-                    />
+                    android:paddingTop="@dimen/paddingTable"
+                    android:text="@string/manufacturer"
+                    android:textSize="@dimen/detailTableTextSize" />
 
                 <TextView
                     android:id="@+id/tv_manufacturer_value"
@@ -272,28 +275,29 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_cas_number"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/manufacturer"
-                    android:textSize="@dimen/detailTableTextSize"
-                    android:layout_weight="1"
                     android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/manufacturer"
+                    android:textSize="@dimen/detailTableTextSize" />
 
 
             </TableRow>
 
             <TableRow>
+
                 <TextView
                     android:id="@+id/tv_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_manufacturer"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/type"
-                    android:textSize="@dimen/detailTableTextSize"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/type"
+                    android:textSize="@dimen/detailTableTextSize" />
 
                 <TextView
                     android:id="@+id/tv_type_value"
@@ -301,31 +305,29 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_manufacturer"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/type"
-                    android:textSize="@dimen/detailTableTextSize"
-                    android:layout_weight="1"
                     android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/paddingTable"
                     android:paddingTop="@dimen/paddingTable"
-                    android:paddingBottom="@dimen/paddingTable"/>
+                    android:text="@string/type"
+                    android:textSize="@dimen/detailTableTextSize" />
 
             </TableRow>
         </TableLayout>
 
 
-
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Request Purchase"-->
-            <!--android:textSize="20sp"-->
-            <!--android:textStyle="bold"-->
-            <!--android:id="@+id/btn_request"-->
-            <!--android:layout_below="@id/table"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:layout_centerHorizontal="true"/>-->
-
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Request Purchase"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:id="@+id/btn_request"-->
+        <!--android:layout_below="@id/table"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_centerHorizontal="true"/>-->
 
 
     </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</RelativeLayout>

@@ -6,4 +6,13 @@
     <color name="cardBackground">#e0e0e0</color>
     <color name="black">#000000</color>
     <color name="colorAccent">#ffffff</color>
+    <color name="colorPrimaryOrange">#e65100</color>
+    <color name="colorPrimaryDarkOrange">#ac1900</color>
+    <color name="colorPrimaryLightOrange">#ff833a</color>
+    <color name="colorPrimaryCyan">#00bcd4</color>
+    <color name="colorPrimaryDarkCyan">#008ba3</color>
+    <color name="colorPrimaryLightCyan">#62efff</color>
+    <color name="colorPrimaryRed">#e53935</color>
+    <color name="colorPrimaryDarkRed">#ab000d</color>
+    <color name="colorPrimaryLightRed">#ff6f60</color>
 </resources>
