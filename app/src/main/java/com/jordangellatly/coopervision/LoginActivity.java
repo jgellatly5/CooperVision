@@ -61,10 +61,10 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Log.d(TAG, "onComplete: " + user.getDisplayName());
-                            Toast.makeText(LoginActivity.this, "You have signed in", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "You have signed in " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
 
-                            //TODO add intent to move to list of chemicals
+                            Intent intent = new Intent(LoginActivity.this, ListActivity.class);
+                            startActivity(intent);
 
                         } else {
                             // If sign in fails, display a message to the user.

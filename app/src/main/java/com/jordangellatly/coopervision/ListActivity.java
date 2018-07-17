@@ -70,6 +70,9 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Chemicals chemicals = dataSnapshot.getValue(Chemicals.class);
                 chemicalArrayList.add(chemicals);
+                adapter = new ChemicalAdapter(chemicalArrayList, ListActivity.this);
+                chemicalList.setAdapter(adapter);
+                mProgressBar.setVisibility(ProgressBar.INVISIBLE);
             }
 
             @Override
@@ -92,9 +95,7 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
 
             }
         });
-        adapter = new ChemicalAdapter(chemicalArrayList, ListActivity.this);
-        chemicalList.setAdapter(adapter);
-        mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+
     }
 
     @Override
@@ -116,6 +117,7 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
             @Override
             public boolean onQueryTextChange(String s) {
                 adapter.getFilter().filter(s);
+                // TODO make screen for null result
                 return false;
             }
         });

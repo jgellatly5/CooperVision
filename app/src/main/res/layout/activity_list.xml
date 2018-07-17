@@ -14,14 +14,6 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ProgressBar
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/progress_bar"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/toolbar_search"
-        android:layout_centerInParent="true"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chemical_list"
         android:layout_width="match_parent"
@@ -29,5 +21,12 @@
         android:layout_below="@id/toolbar_search">
 
     </android.support.v7.widget.RecyclerView>
+
+    <ProgressBar
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/progress_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>
