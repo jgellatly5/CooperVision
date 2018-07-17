@@ -35,6 +35,8 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
 
     private static final String TAG = "ListActivity";
 
+    private static final int REQUEST_CODE = 1;
+
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
@@ -48,6 +50,7 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.ListActivityTheme);
         setContentView(R.layout.activity_list);
 
         chemicalList = findViewById(R.id.chemical_list);
@@ -120,14 +123,24 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
     }
 
     @Override
-    public void onChemicalSelected(Chemicals chemicals) {
+    public void onChemicalSelected(Chemicals chemicals, int position) {
         Intent intent = new Intent(ListActivity.this, DetailActivity.class);
         Bundle bundle = new Bundle();
-        int length = 4;
-        int colorChoice = chemicalArrayList.indexOf(chemicals) % length;
-        bundle.putInt("color", colorChoice);
+
+        int chemicalIndex = chemicalArrayList.indexOf(chemicals);
+        Toast.makeText(this, "itemPosition: " + String.valueOf(position) + " " + "chemicalIndex: " + String.valueOf(chemicalIndex), Toast.LENGTH_SHORT).show();
+        bundle.putInt("index", chemicalIndex);
+        bundle.putInt("position", position);
         bundle.putParcelable("chemical", Parcels.wrap(chemicals));
         intent.putExtras(bundle);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            adapter.removeAt(data.getIntExtra("position", -1));
+            Toast.makeText(this, "size: " + String.valueOf(chemicalArrayList.size()), Toast.LENGTH_SHORT).show();
+        }
     }
 }

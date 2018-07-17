@@ -2,13 +2,15 @@
 
     <!-- Base application theme. -->
     <style name="PurpleTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimaryPurple</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkPurple</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="ListActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorPrimary">@color/colorPrimaryGreyBlue</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkGreyBlue</item>
+        <item name="colorAccent">@color/colorPrimaryLightGreyBlue</item>
     </style>
 
     <style name="OrangeTheme" parent="Theme.AppCompat.Light.NoActionBar">

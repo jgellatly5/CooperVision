@@ -1,5 +1,6 @@
 package com.jordangellatly.coopervision;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.NavUtils;
@@ -8,19 +9,28 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.parceler.Parcels;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DetailActivity extends AppCompatActivity {
+
+    private static final String TAG = "DetailActivity";
 
     private TextView tvLocation;
     private TextView tvName;
@@ -42,6 +52,12 @@ public class DetailActivity extends AppCompatActivity {
 
     private Bundle bundle;
     private int colorChoice;
+    private int chemicalIndex;
+
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+
+    private ChemicalAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +75,9 @@ public class DetailActivity extends AppCompatActivity {
         tvManufacturer = findViewById(R.id.tv_manufacturer_value);
         tvType = findViewById(R.id.tv_type_value);
 
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("chemicals");
+
         initToolbarColor();
 
         Chemicals chemicalFromIntent = Parcels.unwrap(getIntent().getParcelableExtra("chemical"));
@@ -71,7 +90,6 @@ public class DetailActivity extends AppCompatActivity {
         tvCasNumber.setText(chemicalFromIntent.getCasNumber());
         tvManufacturer.setText(chemicalFromIntent.getManufacturer());
         tvType.setText(chemicalFromIntent.getType());
-
     }
 
     private void initToolbarColor() {
@@ -103,7 +121,8 @@ public class DetailActivity extends AppCompatActivity {
 
     private void setDetailTheme() {
         bundle = getIntent().getExtras();
-        colorChoice = bundle.getInt("color");
+        int length = 4;
+        colorChoice = bundle.getInt("position") % length;
         switch (colorChoice) {
             case 0:
                 setTheme(R.style.OrangeTheme);
@@ -130,7 +149,13 @@ public class DetailActivity extends AppCompatActivity {
                 Toast.makeText(this, "Edit this item.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.detail_remove:
-                Toast.makeText(this, "Remove this item.", Toast.LENGTH_SHORT).show();
+                chemicalIndex = bundle.getInt("index") + 1;
+                myRef.child(String.valueOf(chemicalIndex)).removeValue();
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("position", bundle.getInt("position"));
+                setResult(Activity.RESULT_OK, returnIntent);
+                Toast.makeText(this, String.valueOf(chemicalIndex), Toast.LENGTH_SHORT).show();
+                finish();
                 break;
             case R.id.detail_request:
                 Toast.makeText(this, "Request purchase.", Toast.LENGTH_SHORT).show();

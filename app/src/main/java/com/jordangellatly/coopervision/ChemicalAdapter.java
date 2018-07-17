@@ -11,6 +11,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHolder> implements Filterable {
 
     private static final String TAG = "ChemicalAdapter";
-    public static int colorChoice;
+    public int colorChoice;
 
     private List<Chemicals> mChemicals;
     private List<Chemicals> mChemicalsFiltered;
@@ -73,7 +74,8 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onChemicalSelected(mChemicalsFiltered.get(getAdapterPosition()));
+                    int position = getAdapterPosition();
+                    listener.onChemicalSelected(mChemicalsFiltered.get(position), position);
                 }
             });
         }
@@ -121,10 +123,12 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
     }
 
     public interface ChemicalAdapterListener {
-        void onChemicalSelected(Chemicals chemicals);
+        void onChemicalSelected(Chemicals chemicals, int position);
     }
 
-    public static int getColor() {
-        return colorChoice;
+    public void removeAt(int position) {
+        mChemicalsFiltered.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mChemicalsFiltered.size());
     }
 }
