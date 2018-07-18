@@ -6,15 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -24,12 +21,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListActivity extends AppCompatActivity implements ChemicalAdapter.ChemicalAdapterListener {
 
@@ -126,7 +121,7 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
 
     @Override
     public void onChemicalSelected(Chemicals chemicals, int position) {
-        Intent intent = new Intent(ListActivity.this, DetailActivity2.class);
+        Intent intent = new Intent(ListActivity.this, DetailActivity.class);
         Bundle bundle = new Bundle();
 
         int chemicalIndex = chemicalArrayList.indexOf(chemicals);

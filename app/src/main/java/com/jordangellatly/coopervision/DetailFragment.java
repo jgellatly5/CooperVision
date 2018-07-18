@@ -12,13 +12,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -64,6 +67,8 @@ public class DetailFragment extends Fragment {
     TextView tvTypeValue;
     @BindView(R.id.table)
     TableLayout table;
+    @BindView(R.id.btn_request)
+    Button btnRequest;
 
     private Unbinder unbinder;
 
@@ -116,6 +121,12 @@ public class DetailFragment extends Fragment {
         tvTypeValue.setText(chemicalFromIntent.getType());
     }
 
+    @OnClick(R.id.btn_request)
+    public void requestPurchase() {
+        Toast.makeText(getActivity(), "Request Purchase", Toast.LENGTH_SHORT).show();
+        getActivity().finish();
+    }
+
     private void initImageColor() {
         Bundle bundle = getActivity().getIntent().getExtras();
         int length = 4;
@@ -123,15 +134,19 @@ public class DetailFragment extends Fragment {
         switch (colorChoice) {
             case 0:
                 circleImageView.setImageResource(R.drawable.cooper_drop_orange);
+                btnRequest.setBackgroundColor(Color.parseColor("#e65100"));
                 break;
             case 1:
                 circleImageView.setImageResource(R.drawable.cooper_drop_cyan);
+                btnRequest.setBackgroundColor(Color.parseColor("#00bcd4"));
                 break;
             case 2:
                 circleImageView.setImageResource(R.drawable.cooper_drop_red);
+                btnRequest.setBackgroundColor(Color.parseColor("#e53935"));
                 break;
             case 3:
                 circleImageView.setImageResource(R.drawable.cooper_drop_purple);
+                btnRequest.setBackgroundColor(Color.parseColor("#7b1fa2"));
                 break;
         }
     }

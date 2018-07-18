@@ -22,9 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailActivity" />
         <activity
-            android:name=".DetailActivity2"
+            android:name=".DetailActivity"
             android:label="@string/title_activity_detail2"
             android:theme="@style/PurpleTheme">
 
