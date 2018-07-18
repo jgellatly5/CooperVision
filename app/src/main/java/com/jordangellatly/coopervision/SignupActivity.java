@@ -17,13 +17,21 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "SignupActivity";
-
-    private EditText mEmail, mPassword;
-    private Button mBtnSignup;
-    private TextView mSwitchToLogin;
+    @BindView(R.id.et_email)
+    EditText etEmail;
+    @BindView(R.id.et_password)
+    EditText etPassword;
+    @BindView(R.id.btn_signup)
+    Button btnSignup;
+    @BindView(R.id.tv_switch_login)
+    TextView tvSwitchLogin;
 
     // Firebase
     private FirebaseAuth mAuth;
@@ -32,46 +40,39 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
-        mEmail = findViewById(R.id.et_email);
-        mPassword = findViewById(R.id.et_password);
-        mBtnSignup = findViewById(R.id.btn_signup);
-        mSwitchToLogin = findViewById(R.id.tv_switch_login);
-        mSwitchToLogin.setClickable(true);
-
-        mSwitchToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+        ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
+    }
 
-        mBtnSignup.setOnClickListener(new View.OnClickListener() {
+    @OnClick({R.id.btn_signup, R.id.tv_switch_login})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_signup:
+                signUp();
+                break;
+            case R.id.tv_switch_login:
+                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    private void signUp() {
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
-            public void onClick(View view) {
-                String email = mEmail.getText().toString();
-                String password = mPassword.getText().toString();
-
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Log.d(TAG, "createUserWithEmail:success" + user.getEmail());
-                                Toast.makeText(SignupActivity.this, "You have created a new account", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(SignupActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                });
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(SignupActivity.this, "You have created a new account. Please sign in.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                    Toast.makeText(SignupActivity.this, "Could not create user.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

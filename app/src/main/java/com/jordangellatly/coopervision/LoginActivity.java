@@ -1,9 +1,9 @@
 package com.jordangellatly.coopervision;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,13 +17,27 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
 
-    private EditText mEmail, mPassword;
-    private Button mBtnLogin;
-    private TextView mSwitchToSignup;
+    @BindView(R.id.login_image)
+    CircleImageView loginImage;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.et_email)
+    EditText etEmail;
+    @BindView(R.id.et_password)
+    EditText etPassword;
+    @BindView(R.id.btn_login)
+    Button btnLogin;
+    @BindView(R.id.tv_switch_signup)
+    TextView tvSwitchSignup;
 
     // Firebase
     private FirebaseAuth mAuth;
@@ -32,50 +46,39 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        mEmail = findViewById(R.id.et_email);
-        mPassword = findViewById(R.id.et_password);
-        mBtnLogin = findViewById(R.id.btn_login);
-        mSwitchToSignup = findViewById(R.id.tv_switch_signup);
-        mSwitchToSignup.setClickable(true);
-
-        mSwitchToSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
-            }
-        });
+        ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
+    }
 
-        mBtnLogin.setOnClickListener(new View.OnClickListener() {
+    @OnClick({R.id.btn_login, R.id.tv_switch_signup})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_login:
+                login();
+                break;
+            case R.id.tv_switch_signup:
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    private void login() {
+        final String email = etEmail.getText().toString();
+        final String password = etPassword.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
-            public void onClick(View view) {
-                String email = mEmail.getText().toString();
-                String password = mPassword.getText().toString();
-
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, "You have signed in " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(LoginActivity.this, ListActivity.class);
-                            startActivity(intent);
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Intent intent = new Intent(LoginActivity.this, ListActivity.class);
+                    startActivity(intent);
+                } else {
+                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                    Toast.makeText(LoginActivity.this, "Authentication failed: " + email + " " + password, Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-
     }
 }
