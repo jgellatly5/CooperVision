@@ -3,16 +3,13 @@ package com.jordangellatly.coopervision;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.app.NavUtils;
-import android.support.v4.content.ContextCompat;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,34 +18,58 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DetailActivity extends AppCompatActivity {
 
     private static final String TAG = "DetailActivity";
 
-    private TextView tvLocation;
-    private TextView tvName;
-    private TextView tvRecDate;
-    private TextView tvExpDate;
-    private TextView tvLotOrder;
-    private TextView tvBottleCount;
-    private TextView tvCasNumber;
-    private TextView tvManufacturer;
-    private TextView tvType;
-
-    private CircleImageView circleImageView;
+    @BindView(R.id.toolbar_detail)
+    Toolbar tbDetail;
+    @BindView(R.id.image)
+    CircleImageView circleImageView;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_location)
+    TextView tvLocation;
+    @BindView(R.id.tv_location_value)
+    TextView tvLocationValue;
+    @BindView(R.id.tv_rec_date)
+    TextView tvRecDate;
+    @BindView(R.id.tv_rec_date_value)
+    TextView tvRecDateValue;
+    @BindView(R.id.tv_exp_date)
+    TextView tvExpDate;
+    @BindView(R.id.tv_exp_date_value)
+    TextView tvExpDateValue;
+    @BindView(R.id.tv_lot_order)
+    TextView tvLotOrder;
+    @BindView(R.id.tv_lot_order_value)
+    TextView tvLotOrderValue;
+    @BindView(R.id.tv_bottle_count)
+    TextView tvBottleCount;
+    @BindView(R.id.tv_bottle_count_value)
+    TextView tvBottleCountValue;
+    @BindView(R.id.tv_cas_number)
+    TextView tvCasNumber;
+    @BindView(R.id.tv_cas_number_value)
+    TextView tvCasNumberValue;
+    @BindView(R.id.tv_manufacturer)
+    TextView tvManufacturer;
+    @BindView(R.id.tv_manufacturer_value)
+    TextView tvManufacturerValue;
+    @BindView(R.id.tv_type)
+    TextView tvType;
+    @BindView(R.id.tv_type_value)
+    TextView tvTypeValue;
+    @BindView(R.id.table)
+    TableLayout table;
 
     private TextView btnEdit;
     private TextView btnDelete;
     private TextView btnRequestPurchase;
-
-    private Toolbar tbDetail;
 
     private Bundle bundle;
     private int colorChoice;
@@ -57,23 +78,12 @@ public class DetailActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
-    private ChemicalAdapter adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setDetailTheme();
         setContentView(R.layout.activity_detail);
-
-        tvLocation = findViewById(R.id.tv_location_value);
-        tvName = findViewById(R.id.tv_name);
-        tvRecDate = findViewById(R.id.tv_rec_date_value);
-        tvExpDate = findViewById(R.id.tv_exp_date_value);
-        tvLotOrder = findViewById(R.id.tv_lot_order_value);
-        tvBottleCount = findViewById(R.id.tv_bottle_count_value);
-        tvCasNumber = findViewById(R.id.tv_cas_number_value);
-        tvManufacturer = findViewById(R.id.tv_manufacturer_value);
-        tvType = findViewById(R.id.tv_type_value);
+        ButterKnife.bind(this);
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("chemicals");
@@ -82,23 +92,21 @@ public class DetailActivity extends AppCompatActivity {
 
         Chemicals chemicalFromIntent = Parcels.unwrap(getIntent().getParcelableExtra("chemical"));
         tvName.setText(chemicalFromIntent.getMaterialName());
-        tvLocation.setText(chemicalFromIntent.getLocationInLab());
-        tvRecDate.setText(chemicalFromIntent.getReceiveDate());
-        tvExpDate.setText(chemicalFromIntent.getExpirationDate());
-        tvLotOrder.setText(chemicalFromIntent.getLotOrderNumber());
-        tvBottleCount.setText(chemicalFromIntent.getBottleCount().toString());
-        tvCasNumber.setText(chemicalFromIntent.getCasNumber());
-        tvManufacturer.setText(chemicalFromIntent.getManufacturer());
-        tvType.setText(chemicalFromIntent.getType());
+        tvLocationValue.setText(chemicalFromIntent.getLocationInLab());
+        tvRecDateValue.setText(chemicalFromIntent.getReceiveDate());
+        tvExpDateValue.setText(chemicalFromIntent.getExpirationDate());
+        tvLotOrderValue.setText(chemicalFromIntent.getLotOrderNumber());
+        tvBottleCountValue.setText(chemicalFromIntent.getBottleCount().toString());
+        tvCasNumberValue.setText(chemicalFromIntent.getCasNumber());
+        tvManufacturerValue.setText(chemicalFromIntent.getManufacturer());
+        tvTypeValue.setText(chemicalFromIntent.getType());
     }
 
     private void initToolbarColor() {
-        tbDetail = findViewById(R.id.toolbar_detail);
         setSupportActionBar(tbDetail);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("");
-        circleImageView = findViewById(R.id.image);
         switch (colorChoice) {
             case 0:
                 circleImageView.setImageResource(R.drawable.cooper_drop_orange);

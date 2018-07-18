@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/PurpleTheme">
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SignupActivity"></activity>
+        <activity android:name=".SignupActivity" />
         <activity
             android:name=".ListActivity"
             android:theme="@style/ListActivityTheme">
@@ -22,7 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".DetailActivity" />
+        <activity
+            android:name=".DetailActivity2"
+            android:label="@string/title_activity_detail2"
+            android:theme="@style/PurpleTheme"></activity>
     </application>
 
 </manifest>

@@ -9,4 +9,5 @@
     <string name="cas_number">CAS Number: </string>
     <string name="manufacturer">Manufacturer: </string>
     <string name="type">Type: </string>
+    <string name="title_activity_detail2">DetailActivity2</string>
 </resources>
