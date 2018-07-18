@@ -126,7 +126,7 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
 
     @Override
     public void onChemicalSelected(Chemicals chemicals, int position) {
-        Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+        Intent intent = new Intent(ListActivity.this, DetailActivity2.class);
         Bundle bundle = new Bundle();
 
         int chemicalIndex = chemicalArrayList.indexOf(chemicals);

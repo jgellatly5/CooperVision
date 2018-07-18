@@ -16,18 +16,18 @@
         <activity
             android:name=".ListActivity"
             android:theme="@style/ListActivityTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".DetailActivity" />
         <activity
             android:name=".DetailActivity2"
             android:label="@string/title_activity_detail2"
             android:theme="@style/PurpleTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

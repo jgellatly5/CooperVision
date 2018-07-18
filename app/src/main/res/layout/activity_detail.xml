@@ -6,19 +6,19 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryPurple">
+    android:id="@+id/toolbar_detail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryPurple">
 
-        <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Details"-->
-        <!--android:gravity="center"-->
-        <!--android:textSize="20sp"/>-->
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Details"-->
+    <!--android:gravity="center"-->
+    <!--android:textSize="20sp"/>-->
 
-    </android.support.v7.widget.Toolbar>
+</android.support.v7.widget.Toolbar>
 
     <RelativeLayout
 

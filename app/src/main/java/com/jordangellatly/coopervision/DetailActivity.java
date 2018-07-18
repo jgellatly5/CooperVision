@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,10 +67,8 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvTypeValue;
     @BindView(R.id.table)
     TableLayout table;
-
-    private TextView btnEdit;
-    private TextView btnDelete;
-    private TextView btnRequestPurchase;
+    @BindView(R.id.btn_request)
+    Button btnRequestPurchase;
 
     private Bundle bundle;
     private int colorChoice;
