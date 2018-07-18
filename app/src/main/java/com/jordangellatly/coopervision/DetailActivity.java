@@ -1,6 +1,8 @@
 package com.jordangellatly.coopervision;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -104,19 +106,42 @@ public class DetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.detail_remove:
-                chemicalIndex = bundle.getInt("index") + 1;
-                myRef.child(String.valueOf(chemicalIndex)).removeValue();
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("position", bundle.getInt("position"));
-                setResult(Activity.RESULT_OK, returnIntent);
-                Toast.makeText(this, String.valueOf(chemicalIndex), Toast.LENGTH_SHORT).show();
-                finish();
+                createDialog();
+
+//                chemicalIndex = bundle.getInt("index") + 1;
+//                myRef.child(String.valueOf(chemicalIndex)).removeValue();
+//                Intent returnIntent = new Intent();
+//                returnIntent.putExtra("position", bundle.getInt("position"));
+//                setResult(Activity.RESULT_OK, returnIntent);
+//                Toast.makeText(this, String.valueOf(chemicalIndex), Toast.LENGTH_SHORT).show();
+//                finish();
                 break;
             default:
                 finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
+        builder.setMessage("Are you sure you would like to remove this chemical from the inventory?")
+                .setTitle("Warning")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(DetailActivity.this, "Removing Item!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(DetailActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override

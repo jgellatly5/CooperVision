@@ -3,4 +3,5 @@
     <dimen name="detailTableTextSize">15sp</dimen>
     <dimen name="paddingTable">2dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="paddingEditText">10dp</dimen>
 </resources>

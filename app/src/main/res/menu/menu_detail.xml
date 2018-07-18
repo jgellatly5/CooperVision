@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/detail_remove"
+        android:icon="@drawable/ic_delete"
         android:title="Remove"
-        app:showAsAction="collapseActionView">
+        app:showAsAction="always">
     </item>
 </menu>
