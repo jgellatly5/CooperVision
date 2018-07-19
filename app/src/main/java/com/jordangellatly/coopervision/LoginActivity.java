@@ -68,17 +68,23 @@ public class LoginActivity extends AppCompatActivity {
         final String email = etEmail.getText().toString();
         final String password = etPassword.getText().toString();
 
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Intent intent = new Intent(LoginActivity.this, ListActivity.class);
-                    startActivity(intent);
-                } else {
-                    Log.w(TAG, "signInWithEmail:failure", task.getException());
-                    Toast.makeText(LoginActivity.this, "Authentication failed: " + email + " " + password, Toast.LENGTH_SHORT).show();
+        if (email.equals("")) {
+            Toast.makeText(this, "Please enter your email.", Toast.LENGTH_SHORT).show();
+        } else if (password.equals("")) {
+            Toast.makeText(this, "Please enter your password.", Toast.LENGTH_SHORT).show();
+        } else {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Intent intent = new Intent(LoginActivity.this, ListActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                        Toast.makeText(LoginActivity.this, "Authentication failed: " + email + " " + password, Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }

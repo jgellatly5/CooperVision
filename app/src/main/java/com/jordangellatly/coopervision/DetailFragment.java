@@ -1,14 +1,10 @@
 package com.jordangellatly.coopervision;
 
-import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,22 +127,23 @@ public class DetailFragment extends Fragment {
         Bundle bundle = getActivity().getIntent().getExtras();
         int length = 4;
         int colorChoice = bundle.getInt("position") % length;
+
         switch (colorChoice) {
             case 0:
                 circleImageView.setImageResource(R.drawable.cooper_drop_orange);
-                btnRequest.setBackgroundColor(Color.parseColor("#e65100"));
+                btnRequest.setBackgroundResource(R.drawable.button_orange);
                 break;
             case 1:
                 circleImageView.setImageResource(R.drawable.cooper_drop_cyan);
-                btnRequest.setBackgroundColor(Color.parseColor("#00bcd4"));
+                btnRequest.setBackgroundResource(R.drawable.button_cyan);
                 break;
             case 2:
                 circleImageView.setImageResource(R.drawable.cooper_drop_red);
-                btnRequest.setBackgroundColor(Color.parseColor("#e53935"));
+                btnRequest.setBackgroundResource(R.drawable.button_red);
                 break;
             case 3:
                 circleImageView.setImageResource(R.drawable.cooper_drop_purple);
-                btnRequest.setBackgroundColor(Color.parseColor("#7b1fa2"));
+                btnRequest.setBackgroundResource(R.drawable.button_purple);
                 break;
         }
     }

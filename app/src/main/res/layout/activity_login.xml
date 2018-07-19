@@ -52,10 +52,12 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="Login"
-        android:background="@color/colorPrimaryPurple"
+        android:background="@drawable/button_purple"
         android:layout_below="@id/et_password"
         android:gravity="center"
-        android:id="@+id/btn_login"/>
+        android:textSize="15sp"
+        android:id="@+id/btn_login"
+        android:textColor="@color/white"/>
 
     <TextView
         android:layout_width="wrap_content"

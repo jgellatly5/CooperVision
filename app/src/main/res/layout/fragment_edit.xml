@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,10 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/image"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:autoSizeTextType="uniform"
         android:gravity="center"
-        android:layout_centerHorizontal="true"
         android:hint="@string/chemical_name"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -56,16 +55,16 @@
 
             <EditText
                 android:id="@+id/et_location_value"
-                android:padding="@dimen/paddingEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
+                android:hint="@string/chemical_location"
+                android:padding="@dimen/paddingEditText"
                 android:paddingBottom="@dimen/paddingTable"
                 android:paddingTop="@dimen/paddingTable"
-                android:hint="@string/chemical_location"
                 android:textSize="@dimen/detailTableTextSize" />
         </TableRow>
 
@@ -87,14 +86,14 @@
                 android:id="@+id/et_rec_date_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/paddingEditText"
                 android:layout_below="@+id/tv_location"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
+                android:hint="@string/received_date"
+                android:padding="@dimen/paddingEditText"
                 android:paddingBottom="@dimen/paddingTable"
                 android:paddingTop="@dimen/paddingTable"
-                android:hint="@string/received_date"
                 android:textSize="@dimen/detailTableTextSize" />
 
         </TableRow>
@@ -117,14 +116,14 @@
                 android:id="@+id/et_exp_date_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/paddingEditText"
                 android:layout_below="@+id/tv_rec_date"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
+                android:hint="@string/exp_date"
+                android:padding="@dimen/paddingEditText"
                 android:paddingBottom="@dimen/paddingTable"
                 android:paddingTop="@dimen/paddingTable"
-                android:hint="@string/exp_date"
                 android:textSize="@dimen/detailTableTextSize" />
 
         </TableRow>
@@ -147,14 +146,14 @@
                 android:id="@+id/et_lot_order_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/paddingEditText"
                 android:layout_below="@+id/tv_exp_date"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
+                android:hint="@string/lot_order_number"
+                android:padding="@dimen/paddingEditText"
                 android:paddingBottom="@dimen/paddingTable"
                 android:paddingTop="@dimen/paddingTable"
-                android:hint="@string/lot_order_number"
                 android:textSize="@dimen/detailTableTextSize" />
 
         </TableRow>
@@ -177,14 +176,14 @@
                 android:id="@+id/et_bottle_count_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/paddingEditText"
                 android:layout_below="@+id/tv_lot_order"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
+                android:hint="@string/bottle_count"
+                android:padding="@dimen/paddingEditText"
                 android:paddingBottom="@dimen/paddingTable"
                 android:paddingTop="@dimen/paddingTable"
-                android:hint="@string/bottle_count"
                 android:textSize="@dimen/detailTableTextSize" />
 
         </TableRow>
@@ -207,14 +206,14 @@
                 android:id="@+id/et_cas_number_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/paddingEditText"
                 android:layout_below="@+id/tv_bottle_count"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
+                android:hint="@string/cas_number"
+                android:padding="@dimen/paddingEditText"
                 android:paddingBottom="@dimen/paddingTable"
                 android:paddingTop="@dimen/paddingTable"
-                android:hint="@string/cas_number"
                 android:textSize="@dimen/detailTableTextSize" />
 
         </TableRow>
@@ -237,14 +236,14 @@
                 android:id="@+id/et_manufacturer_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/paddingEditText"
                 android:layout_below="@+id/tv_cas_number"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
+                android:hint="@string/manufacturer"
+                android:padding="@dimen/paddingEditText"
                 android:paddingBottom="@dimen/paddingTable"
                 android:paddingTop="@dimen/paddingTable"
-                android:hint="@string/manufacturer"
                 android:textSize="@dimen/detailTableTextSize" />
 
 
@@ -268,14 +267,14 @@
                 android:id="@+id/et_type_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/paddingEditText"
                 android:layout_below="@+id/tv_manufacturer"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
+                android:hint="@string/type"
+                android:padding="@dimen/paddingEditText"
                 android:paddingBottom="@dimen/paddingTable"
                 android:paddingTop="@dimen/paddingTable"
-                android:hint="@string/type"
                 android:textSize="@dimen/detailTableTextSize" />
 
         </TableRow>
@@ -283,14 +282,16 @@
 
 
     <Button
+        android:id="@+id/btn_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:id="@+id/btn_update"
         android:layout_below="@id/table"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
+        android:padding="10dp"
+        android:text="Update"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

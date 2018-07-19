@@ -5,7 +5,8 @@
     <color name="colorPrimaryLightPurple">#ae52d4</color>
     <color name="cardBackground">#e0e0e0</color>
     <color name="black">#000000</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="white">#fff</color>
+    <color name="colorAccent">#ae52d4</color>
     <color name="colorPrimaryOrange">#e65100</color>
     <color name="colorPrimaryDarkOrange">#ac1900</color>
     <color name="colorPrimaryLightOrange">#ff833a</color>

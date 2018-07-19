@@ -105,19 +105,19 @@ public class EditFragment extends Fragment {
         switch (colorChoice) {
             case 0:
                 circleImageView.setImageResource(R.drawable.cooper_drop_orange);
-                btnUpdate.setBackgroundColor(Color.parseColor("#e65100"));
+                btnUpdate.setBackgroundResource(R.drawable.button_orange);
                 break;
             case 1:
                 circleImageView.setImageResource(R.drawable.cooper_drop_cyan);
-                btnUpdate.setBackgroundColor(Color.parseColor("#00bcd4"));
+                btnUpdate.setBackgroundResource(R.drawable.button_cyan);
                 break;
             case 2:
                 circleImageView.setImageResource(R.drawable.cooper_drop_red);
-                btnUpdate.setBackgroundColor(Color.parseColor("#e53935"));
+                btnUpdate.setBackgroundResource(R.drawable.button_red);
                 break;
             case 3:
                 circleImageView.setImageResource(R.drawable.cooper_drop_purple);
-                btnUpdate.setBackgroundColor(Color.parseColor("#7b1fa2"));
+                btnUpdate.setBackgroundResource(R.drawable.button_purple);
                 break;
         }
     }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,19 +27,25 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ListActivity extends AppCompatActivity implements ChemicalAdapter.ChemicalAdapterListener {
 
     private static final String TAG = "ListActivity";
 
     private static final int REQUEST_CODE = 1;
+    @BindView(R.id.toolbar_search)
+    Toolbar toolbarSearch;
+    @BindView(R.id.chemical_list)
+    RecyclerView chemicalList;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
-    private RecyclerView chemicalList;
-    private Toolbar tbMainSearch;
     private ChemicalAdapter adapter;
-    private ProgressBar mProgressBar;
 
     final ArrayList<Chemicals> chemicalArrayList = new ArrayList<>();
 
@@ -47,12 +54,13 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         super.onCreate(savedInstanceState);
         setTheme(R.style.ListActivityTheme);
         setContentView(R.layout.activity_list);
+        ButterKnife.bind(this);
 
-        chemicalList = findViewById(R.id.chemical_list);
-        tbMainSearch = findViewById(R.id.toolbar_search);
-        mProgressBar = findViewById(R.id.progress_bar);
-        mProgressBar.setVisibility(ProgressBar.VISIBLE);
-        setSupportActionBar(tbMainSearch);
+        progressBar.setVisibility(ProgressBar.VISIBLE);
+        setSupportActionBar(toolbarSearch);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("");
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("chemicals");
@@ -67,7 +75,7 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
                 chemicalArrayList.add(chemicals);
                 adapter = new ChemicalAdapter(chemicalArrayList, ListActivity.this);
                 chemicalList.setAdapter(adapter);
-                mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+                progressBar.setVisibility(ProgressBar.INVISIBLE);
             }
 
             @Override

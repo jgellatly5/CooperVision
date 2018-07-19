@@ -277,11 +277,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Request Purchase"
-        android:textSize="20sp"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:id="@+id/btn_request"
         android:layout_below="@id/table"
         android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
