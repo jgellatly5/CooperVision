@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,8 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -41,6 +44,8 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
     RecyclerView chemicalList;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;
@@ -99,6 +104,12 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
             }
         });
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ListActivity.this, "You wanna create something?", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
