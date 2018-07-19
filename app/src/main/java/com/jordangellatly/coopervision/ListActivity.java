@@ -128,6 +128,19 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onChemicalSelected(Chemicals chemicals, int position) {
         Intent intent = new Intent(ListActivity.this, DetailActivity.class);
         Bundle bundle = new Bundle();

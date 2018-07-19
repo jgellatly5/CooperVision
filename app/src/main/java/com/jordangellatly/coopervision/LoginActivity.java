@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Intent intent = new Intent(LoginActivity.this, ListActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, FilterActivity.class);
                         startActivity(intent);
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
