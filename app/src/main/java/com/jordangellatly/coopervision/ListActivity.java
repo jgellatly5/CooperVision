@@ -107,7 +107,8 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ListActivity.this, "You wanna create something?", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ListActivity.this, CreateActivity.class);
+                startActivity(intent);
             }
         });
     }

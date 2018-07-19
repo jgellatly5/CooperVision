@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="30dp"
+    tools:context=".DetailActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/cooper_drop_purple" />
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:hint="@string/chemical_name"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:text="@string/chemical_location"
+                android:textSize="@dimen/detailTableTextSize" />
+
+            <EditText
+                android:id="@+id/et_location_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:hint="@string/chemical_location"
+                android:padding="@dimen/paddingEditText"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:textSize="@dimen/detailTableTextSize" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tv_rec_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_location"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:text="@string/received_date"
+                android:textSize="@dimen/detailTableTextSize" />
+
+            <EditText
+                android:id="@+id/et_rec_date_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_location"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:hint="@string/received_date"
+                android:padding="@dimen/paddingEditText"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:textSize="@dimen/detailTableTextSize" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tv_exp_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_rec_date"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:text="@string/exp_date"
+                android:textSize="@dimen/detailTableTextSize" />
+
+            <EditText
+                android:id="@+id/et_exp_date_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_rec_date"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:hint="@string/exp_date"
+                android:padding="@dimen/paddingEditText"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:textSize="@dimen/detailTableTextSize" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tv_lot_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_exp_date"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:text="@string/lot_order_number"
+                android:textSize="@dimen/detailTableTextSize" />
+
+            <EditText
+                android:id="@+id/et_lot_order_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_exp_date"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:hint="@string/lot_order_number"
+                android:padding="@dimen/paddingEditText"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:textSize="@dimen/detailTableTextSize" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tv_bottle_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_lot_order"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:text="@string/bottle_count"
+                android:textSize="@dimen/detailTableTextSize" />
+
+            <EditText
+                android:id="@+id/et_bottle_count_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_lot_order"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:hint="@string/bottle_count"
+                android:padding="@dimen/paddingEditText"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:textSize="@dimen/detailTableTextSize" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tv_cas_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_bottle_count"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:text="@string/cas_number"
+                android:textSize="@dimen/detailTableTextSize" />
+
+            <EditText
+                android:id="@+id/et_cas_number_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_bottle_count"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:hint="@string/cas_number"
+                android:padding="@dimen/paddingEditText"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:textSize="@dimen/detailTableTextSize" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tv_manufacturer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_cas_number"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:text="@string/manufacturer"
+                android:textSize="@dimen/detailTableTextSize" />
+
+            <EditText
+                android:id="@+id/et_manufacturer_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_cas_number"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:hint="@string/manufacturer"
+                android:padding="@dimen/paddingEditText"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:textSize="@dimen/detailTableTextSize" />
+
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_manufacturer"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:text="@string/type"
+                android:textSize="@dimen/detailTableTextSize" />
+
+            <EditText
+                android:id="@+id/et_type_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_manufacturer"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:hint="@string/type"
+                android:padding="@dimen/paddingEditText"
+                android:paddingBottom="@dimen/paddingTable"
+                android:paddingTop="@dimen/paddingTable"
+                android:textSize="@dimen/detailTableTextSize" />
+
+        </TableRow>
+    </TableLayout>
+
+
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/table"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:text="Create"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
