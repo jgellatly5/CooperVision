@@ -12,7 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.parceler.Parcels;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,6 +62,11 @@ public class EditFragment extends Fragment {
     private String title;
     private int page;
 
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+
+    private Chemicals chemicalFromIntent;
+
     public EditFragment() {
 
     }
@@ -73,6 +85,10 @@ public class EditFragment extends Fragment {
         super.onCreate(savedInstanceState);
         page = getArguments().getInt(ARG_PARAM1, 0);
         title = getArguments().getString(ARG_PARAM2);
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("chemicals");
+        chemicalFromIntent = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("chemical"));
     }
 
     @Override
@@ -86,7 +102,7 @@ public class EditFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initImageColor();
-        Chemicals chemicalFromIntent = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("chemical"));
+
         etName.setText(chemicalFromIntent.getMaterialName());
         etLocationValue.setText(chemicalFromIntent.getLocationInLab());
         etRecDateValue.setText(chemicalFromIntent.getReceiveDate());
@@ -130,7 +146,19 @@ public class EditFragment extends Fragment {
 
     @OnClick(R.id.btn_update)
     public void update() {
-        Toast.makeText(getActivity(), "Update", Toast.LENGTH_SHORT).show();
+        Map<String, Object> chemicalUpdates = new HashMap<>();
+        chemicalUpdates.put("bottleCount", Long.parseLong(etBottleCountValue.getText().toString()));
+        chemicalUpdates.put("casNumber", etCasNumberValue.getText().toString());
+        chemicalUpdates.put("expirationDate", etExpDateValue.getText().toString());
+        chemicalUpdates.put("locationInLab", etLocationValue.getText().toString());
+        chemicalUpdates.put("lotOrderNumber", etLotOrderValue.getText().toString());
+        chemicalUpdates.put("manufacturer", etManufacturerValue.getText().toString());
+        chemicalUpdates.put("materialName", etName.getText().toString());
+        chemicalUpdates.put("receiveDate", etRecDateValue.getText().toString());
+        chemicalUpdates.put("type", etTypeValue.getText().toString());
+
+
+        myRef.child(String.valueOf(chemicalFromIntent.getId())).updateChildren(chemicalUpdates);
         getActivity().finish();
     }
 }
