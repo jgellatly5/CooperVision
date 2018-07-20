@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -161,13 +162,17 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         bundle.putParcelable("chemical", Parcels.wrap(chemicals));
         intent.putExtras(bundle);
         startActivityForResult(intent, REQUEST_CODE);
+
+        Toast.makeText(this, "position: " + position + " id: " + chemicals.getId().toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-//            Chemicals chemical = data.getParcelableExtra("chemical");
-            adapter.removeAt(data.getIntExtra("position", -1));
+            Chemicals chemical = Parcels.unwrap(data.getParcelableExtra("chemical"));
+            int position = data.getIntExtra("position", -1);
+            Toast.makeText(this, "position: " + position + " id: " + chemical.getId().toString(), Toast.LENGTH_SHORT).show();
+            adapter.removeAt(position);
             Toast.makeText(this, "size: " + String.valueOf(chemicalArrayList.size()), Toast.LENGTH_SHORT).show();
         }
     }

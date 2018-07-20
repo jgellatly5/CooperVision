@@ -124,13 +124,7 @@ public class DetailActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Chemicals chemical = Parcels.unwrap(getIntent().getParcelableExtra("chemical"));
-                        myRef.child(String.valueOf(chemical.getId())).removeValue();
-                        Intent returnIntent = new Intent();
-                        returnIntent.putExtras(bundle);
-//                returnIntent.putExtra("position", bundle.getInt("position"));
-                        setResult(Activity.RESULT_OK, returnIntent);
-                        finish();
+                        removeChemical();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -141,6 +135,16 @@ public class DetailActivity extends AppCompatActivity {
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void removeChemical() {
+        Chemicals chemical = Parcels.unwrap(getIntent().getParcelableExtra("chemical"));
+        myRef.child(String.valueOf(chemical.getId())).removeValue();
+        Intent returnIntent = new Intent();
+        returnIntent.putExtras(bundle);
+//                returnIntent.putExtra("position", bundle.getInt("position"));
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
     }
 
     @Override
