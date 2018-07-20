@@ -142,7 +142,6 @@ public class DetailActivity extends AppCompatActivity {
         myRef.child(String.valueOf(chemical.getId())).removeValue();
         Intent returnIntent = new Intent();
         returnIntent.putExtras(bundle);
-//                returnIntent.putExtra("position", bundle.getInt("position"));
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
     }
