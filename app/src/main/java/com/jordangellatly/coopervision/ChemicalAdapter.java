@@ -115,6 +115,8 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
         }
         TextView chemicalName = holder.mChemicalName;
         chemicalName.setText(chemicals.getMaterialName());
+
+
     }
 
     @Override

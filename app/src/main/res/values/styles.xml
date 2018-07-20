@@ -8,9 +8,9 @@
     </style>
 
     <style name="ListActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimaryGreyBlue</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkGreyBlue</item>
-        <item name="colorAccent">@color/colorPrimaryLightGreyBlue</item>
+        <item name="colorPrimary">@color/colorPrimaryGrey</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkGrey</item>
+        <item name="colorAccent">@color/colorPrimaryLightGrey</item>
     </style>
 
     <style name="OrangeTheme" parent="Theme.AppCompat.Light.NoActionBar">

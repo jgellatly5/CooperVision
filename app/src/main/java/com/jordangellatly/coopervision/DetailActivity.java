@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.parceler.Parcels;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -107,14 +109,6 @@ public class DetailActivity extends AppCompatActivity {
                 break;
             case R.id.detail_remove:
                 createDialog();
-
-//                chemicalIndex = bundle.getInt("index") + 1;
-//                myRef.child(String.valueOf(chemicalIndex)).removeValue();
-//                Intent returnIntent = new Intent();
-//                returnIntent.putExtra("position", bundle.getInt("position"));
-//                setResult(Activity.RESULT_OK, returnIntent);
-//                Toast.makeText(this, String.valueOf(chemicalIndex), Toast.LENGTH_SHORT).show();
-//                finish();
                 break;
             default:
                 finish();
@@ -130,7 +124,12 @@ public class DetailActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(DetailActivity.this, "Removing Item!", Toast.LENGTH_SHORT).show();
+                        Chemicals chemical = Parcels.unwrap(getIntent().getParcelableExtra("chemical"));
+                        myRef.child(String.valueOf(chemical.getId())).removeValue();
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtras(bundle);
+//                returnIntent.putExtra("position", bundle.getInt("position"));
+                        setResult(Activity.RESULT_OK, returnIntent);
                         finish();
                     }
                 })

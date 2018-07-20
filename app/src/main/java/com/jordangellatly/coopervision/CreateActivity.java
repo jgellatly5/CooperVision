@@ -6,6 +6,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -36,11 +39,29 @@ public class CreateActivity extends AppCompatActivity {
     @BindView(R.id.btn_update)
     Button btnUpdate;
 
+    private Long bottleCount;
+    private String casNumber;
+    private String expirationDate;
+    private String locationInLab;
+    private String lotOrderNumber;
+    private String manufacturer;
+    private String materialName;
+    private String receiveDate;
+    private String type;
+
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
         ButterKnife.bind(this);
+
+        btnUpdate.setBackgroundResource(R.drawable.button_orange);
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("chemicals");
     }
 
     @OnClick(R.id.btn_update)
@@ -48,4 +69,9 @@ public class CreateActivity extends AppCompatActivity {
         Toast.makeText(this, "Adding chemical to inventory.", Toast.LENGTH_SHORT).show();
         finish();
     }
+
+//    private void writeNewChemical(Long bottleCount, String casNumber, String expirationDate, String locationInLab, String lotOrderNumber, String manufacturer, String materialName, String receiveDate, String type) {
+//        Chemicals chemical = new Chemicals(bottleCount, casNumber, expirationDate, locationInLab, lotOrderNumber, manufacturer, materialName, receiveDate, type);
+//
+//    }
 }

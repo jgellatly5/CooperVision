@@ -5,6 +5,7 @@ import org.parceler.Parcel;
 @Parcel
 public class Chemicals {
     public Long bottleCount;
+    public Long id;
     public String casNumber,
             expirationDate,
             locationInLab,
@@ -18,8 +19,9 @@ public class Chemicals {
 
     }
 
-    public Chemicals(Long bottleCount, String casNumber, String expirationDate, String locationInLab, String lotOrderNumber, String manufacturer, String materialName, String receiveDate, String type) {
+    public Chemicals(Long bottleCount, Long id, String casNumber, String expirationDate, String locationInLab, String lotOrderNumber, String manufacturer, String materialName, String receiveDate, String type) {
         this.bottleCount = bottleCount;
+        this.id = id;
         this.casNumber = casNumber;
         this.expirationDate = expirationDate;
         this.locationInLab = locationInLab;
@@ -36,6 +38,14 @@ public class Chemicals {
 
     public void setBottleCount(Long bottleCount) {
         this.bottleCount = bottleCount;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCasNumber() {
@@ -105,7 +115,8 @@ public class Chemicals {
     @Override
     public String toString() {
         return "Chemicals{" +
-                "bottleCount='" + bottleCount + '\'' +
+                "bottleCount=" + bottleCount +
+                ", id=" + id +
                 ", casNumber='" + casNumber + '\'' +
                 ", expirationDate='" + expirationDate + '\'' +
                 ", locationInLab='" + locationInLab + '\'' +

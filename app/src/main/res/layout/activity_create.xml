@@ -13,7 +13,7 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:src="@drawable/cooper_drop_purple" />
+        android:src="@drawable/cooper_drop_orange" />
 
     <EditText
         android:id="@+id/et_name"
