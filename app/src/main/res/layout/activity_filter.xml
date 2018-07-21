@@ -46,5 +46,31 @@
         android:textColor="@color/white"
         android:textSize="15sp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_search"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:id="@+id/tv_orText"
+        android:text="OR"/>
+
+    <Button
+        android:id="@+id/btn_search_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_orText"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_purple"
+        android:gravity="center"
+        android:text="Search All"
+        android:textColor="@color/white"
+        android:layout_marginTop="30dp"
+        android:textSize="15sp" />
+
+
+
 </RelativeLayout>
 

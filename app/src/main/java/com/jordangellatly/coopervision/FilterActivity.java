@@ -26,8 +26,11 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
     Spinner locationSelection;
     @BindView(R.id.btn_search)
     Button btnSearch;
+    @BindView(R.id.btn_search_all)
+    Button btnSearchAll;
 
-    private Intent intentToListActivity;
+    private Intent intentWithFilter;
+    private Intent intentSearchAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +44,24 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
         locationSelection.setAdapter(adapter);
         locationSelection.setOnItemSelectedListener(this);
 
-        intentToListActivity = new Intent(FilterActivity.this, ListActivity.class);
+        intentWithFilter = new Intent(FilterActivity.this, ListActivity.class);
+        intentSearchAll = new Intent(FilterActivity.this, ListActivity.class);
     }
 
     @OnClick(R.id.btn_search)
-    public void search(View view) {
-        startActivity(intentToListActivity);
+    public void search() {
+        startActivity(intentWithFilter);
+    }
+
+    @OnClick({R.id.btn_search_all})
+    public void searchAll() {
+        startActivity(intentSearchAll);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String selection = adapterView.getItemAtPosition(i).toString();
-        Toast.makeText(this, "selection: " + selection, Toast.LENGTH_SHORT).show();
-        intentToListActivity.putExtra("filter", selection);
+        intentWithFilter.putExtra("filter", selection);
     }
 
     @Override

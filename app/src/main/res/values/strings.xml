@@ -9,12 +9,38 @@
     <string name="cas_number">CAS Number: </string>
     <string name="manufacturer">Manufacturer: </string>
     <string name="type">Type: </string>
-    <string name="title_activity_detail2">DetailActivity2</string>
+
     <string-array name="locations_array">
-        <item>Base Cabinet</item>
-        <item>Acid Cabinet</item>
+        <item>Freezer</item>
         <item>Freezer - BOX 1</item>
-        <item>Refrigerator</item>
-        <item>Wall Cabinet</item>
+        <item>Freezer - BOX 2</item>
+        <item>Freezer - BOX 3</item>
+        <item>Freezer - BOX 6</item>
+        <item>Freezer - BOX 8</item>
+        <item>Acid Cabinet</item>
+        <item>Acid Cabinet - BOX 1</item>
+        <item>Acid Cabinet - BOX 2</item>
+        <item>Acid Cabinet - BOX 3</item>
+        <item>Acid Cabinet - BOX 4</item>
+        <item>Acid Cabinet - BOX 5</item>
+        <item>Base Cabinet - BOX 1</item>
+        <item>Base Cabinet - BOX 2</item>
+        <item>Base Cabinet - BOX 3</item>
+        <item>Base Cabinet - BOX 4</item>
+        <item>Base Cabinet - BOX 5</item>
+        <item>Base Cabinet - BOX 6</item>
+        <item>Base Cabinet - BOX 7</item>
+        <item>Base Cabinet - BOX 8</item>
+        <item>Flammable Cabinet (yellow)</item>
+        <item>Refrigerator - BOX 1</item>
+        <item>Refrigerator - BOX 2</item>
+        <item>Refrigerator - BOX 3</item>
+        <item>Refrigerator - BOX 4</item>
+        <item>Refrigerator - BOX 5</item>
+        <item>Refrigerator - BOX 6</item>
+        <item>Hazardous Waste Storage Area</item>
+        <item>Metrology Lab</item>
+        <item>Wall Cabinet (Left)</item>
+        <item>Wall Cabinet (Right)</item>
     </string-array>
 </resources>
