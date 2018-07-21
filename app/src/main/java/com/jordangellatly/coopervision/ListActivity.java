@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ListActivity extends AppCompatActivity implements ChemicalAdapter.ChemicalAdapterListener {
 
@@ -59,7 +60,6 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.ListActivityTheme);
         setContentView(R.layout.activity_list);
         ButterKnife.bind(this);
 
@@ -69,20 +69,16 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("");
 
+        fetchListData();
+    }
+
+    private void fetchListData() {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("chemicals");
-
-        chemicalList.setHasFixedSize(true);
-        chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
-
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Chemicals chemicals = dataSnapshot.getValue(Chemicals.class);
-                chemicalArrayList.add(chemicals);
-                adapter = new ChemicalAdapter(chemicalArrayList, ListActivity.this);
-                chemicalList.setAdapter(adapter);
-                progressBar.setVisibility(ProgressBar.INVISIBLE);
+                getFirebaseData(dataSnapshot);
             }
 
             @Override
@@ -105,14 +101,21 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
 
             }
         });
+    }
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ListActivity.this, CreateActivity.class);
-                startActivity(intent);
-            }
-        });
+    @OnClick(R.id.fab)
+    public void addChemical() {
+        Intent intent = new Intent(ListActivity.this, CreateActivity.class);
+        startActivity(intent);
+    }
+
+    private void getFirebaseData(@NonNull DataSnapshot dataSnapshot) {
+        Chemicals chemicals = dataSnapshot.getValue(Chemicals.class);
+        chemicalArrayList.add(chemicals);
+        adapter = new ChemicalAdapter(chemicalArrayList, ListActivity.this);
+        chemicalList.setAdapter(adapter);
+        chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
     }
 
     @Override
@@ -143,7 +146,7 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -168,7 +171,19 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             int position = data.getIntExtra("position", -1);
-            adapter.removeAt(position);
+            String stringExtra = data.getStringExtra("intent");
+            Toast.makeText(this, stringExtra, Toast.LENGTH_SHORT).show();
+            if (stringExtra.equals("remove")) {
+                adapter.removeAt(position);
+                Toast.makeText(this, "Removing Item", Toast.LENGTH_SHORT).show();
+            }
+            if (stringExtra.equals("update")) {
+                fetchListData();
+                adapter.notifyItemChanged(position);
+                adapter.notifyItemRangeChanged(position, chemicalArrayList.size());
+//                adapter.updateAt(position);
+                Toast.makeText(this, "Updating List", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

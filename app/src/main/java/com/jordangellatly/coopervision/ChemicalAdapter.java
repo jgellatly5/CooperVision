@@ -129,8 +129,16 @@ public class ChemicalAdapter extends RecyclerView.Adapter<ChemicalAdapter.ViewHo
     }
 
     public void removeAt(int position) {
+        Log.d(TAG, "removeAt: position: " + position);
         mChemicalsFiltered.remove(position);
         notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mChemicalsFiltered.size());
+    }
+
+    public void updateAt(int position) {
+        Log.d(TAG, "updateAt: position: " + position);
+//        notifyDataSetChanged();
+        notifyItemChanged(position);
         notifyItemRangeChanged(position, mChemicalsFiltered.size());
     }
 }

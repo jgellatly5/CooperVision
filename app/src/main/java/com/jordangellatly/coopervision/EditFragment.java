@@ -1,5 +1,7 @@
 package com.jordangellatly.coopervision;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -66,6 +68,7 @@ public class EditFragment extends Fragment {
     private DatabaseReference myRef;
 
     private Chemicals chemicalFromIntent;
+    private Bundle bundleFromListActivity;
 
     public EditFragment() {
 
@@ -115,9 +118,9 @@ public class EditFragment extends Fragment {
     }
 
     private void initImageColor() {
-        Bundle bundle = getActivity().getIntent().getExtras();
+        bundleFromListActivity = getActivity().getIntent().getExtras();
         int length = 4;
-        int colorChoice = bundle.getInt("position") % length;
+        int colorChoice = bundleFromListActivity.getInt("position") % length;
         switch (colorChoice) {
             case 0:
                 circleImageView.setImageResource(R.drawable.cooper_drop_orange);
@@ -156,9 +159,12 @@ public class EditFragment extends Fragment {
         chemicalUpdates.put("materialName", etName.getText().toString());
         chemicalUpdates.put("receiveDate", etRecDateValue.getText().toString());
         chemicalUpdates.put("type", etTypeValue.getText().toString());
-
-
         myRef.child(String.valueOf(chemicalFromIntent.getId())).updateChildren(chemicalUpdates);
+
+        Intent backToListIntent = new Intent();
+        bundleFromListActivity.putString("intent", "update");
+        backToListIntent.putExtras(bundleFromListActivity);
+        getActivity().setResult(Activity.RESULT_OK, backToListIntent);
         getActivity().finish();
     }
 }

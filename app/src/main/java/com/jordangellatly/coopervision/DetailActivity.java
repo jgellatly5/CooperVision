@@ -141,6 +141,7 @@ public class DetailActivity extends AppCompatActivity {
         Chemicals chemical = Parcels.unwrap(getIntent().getParcelableExtra("chemical"));
         myRef.child(String.valueOf(chemical.getId())).removeValue();
         Intent returnIntent = new Intent();
+        bundle.putString("intent", "remove");
         returnIntent.putExtras(bundle);
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
