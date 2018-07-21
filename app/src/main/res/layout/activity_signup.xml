@@ -12,7 +12,7 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:src="@drawable/cooper_drop_purple" />
+        android:src="@drawable/cooper_drop_red" />
 
     <TextView
         android:id="@+id/title"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/et_password"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/button_purple"
+        android:background="@drawable/button_red"
         android:gravity="center"
         android:text="Sign Up"
         android:textColor="@color/white"

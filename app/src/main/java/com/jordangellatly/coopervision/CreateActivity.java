@@ -1,7 +1,10 @@
 package com.jordangellatly.coopervision;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,6 +43,8 @@ public class CreateActivity extends AppCompatActivity {
     EditText etTypeValue;
     @BindView(R.id.btn_create)
     Button btnCreate;
+    @BindView(R.id.toolbar_create)
+    Toolbar toolbarCreate;
 
     private Long bottleCount;
     private String casNumber;
@@ -59,6 +64,11 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
         ButterKnife.bind(this);
+
+        setSupportActionBar(toolbarCreate);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("");
 
         btnCreate.setBackgroundResource(R.drawable.button_orange);
 
@@ -86,5 +96,18 @@ public class CreateActivity extends AppCompatActivity {
         long id = lastChemical.getId() + 1;
         Chemicals chemical = new Chemicals(bottleCount, id, casNumber, expirationDate, locationInLab, lotOrderNumber, manufacturer, materialName, receiveDate, type);
         myRef.child(String.valueOf(chemical.getId())).setValue(chemical);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

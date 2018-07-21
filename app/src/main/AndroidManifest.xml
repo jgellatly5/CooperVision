@@ -11,15 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/PurpleTheme">
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignupActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/PurpleTheme"/>
+        <activity
+            android:name=".SignupActivity"
+            android:theme="@style/RedTheme"/>
         <activity
             android:name=".ListActivity"
             android:theme="@style/ListActivityTheme"></activity>
+        <activity android:name=".DetailActivity" />
         <activity
-            android:name=".DetailActivity"
-            android:theme="@style/PurpleTheme" />
-        <activity android:name=".FilterActivity">
+            android:name=".FilterActivity"
+            android:theme="@style/CyanTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,9 +32,8 @@
         </activity>
         <activity
             android:name=".CreateActivity"
-            android:theme="@style/OrangeTheme">
-
-        </activity>
+            android:theme="@style/OrangeTheme"
+            />
     </application>
 
 </manifest>
