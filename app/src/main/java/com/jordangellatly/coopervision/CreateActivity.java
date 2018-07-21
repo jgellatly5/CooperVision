@@ -9,6 +9,8 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.parceler.Parcels;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -36,8 +38,8 @@ public class CreateActivity extends AppCompatActivity {
     EditText etManufacturerValue;
     @BindView(R.id.et_type_value)
     EditText etTypeValue;
-    @BindView(R.id.btn_update)
-    Button btnUpdate;
+    @BindView(R.id.btn_create)
+    Button btnCreate;
 
     private Long bottleCount;
     private String casNumber;
@@ -58,20 +60,31 @@ public class CreateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create);
         ButterKnife.bind(this);
 
-        btnUpdate.setBackgroundResource(R.drawable.button_orange);
+        btnCreate.setBackgroundResource(R.drawable.button_orange);
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("chemicals");
     }
 
-    @OnClick(R.id.btn_update)
+    @OnClick(R.id.btn_create)
     public void onViewClicked() {
-        Toast.makeText(this, "Adding chemical to inventory.", Toast.LENGTH_SHORT).show();
+        bottleCount = Long.parseLong(etBottleCountValue.getText().toString());
+        casNumber = etCasNumberValue.getText().toString();
+        expirationDate = etExpDateValue.getText().toString();
+        locationInLab = etLocationValue.getText().toString();
+        lotOrderNumber = etLotOrderValue.getText().toString();
+        manufacturer = etManufacturerValue.getText().toString();
+        materialName = etName.getText().toString();
+        receiveDate = etRecDateValue.getText().toString();
+        type = etTypeValue.getText().toString();
+        writeNewChemical(bottleCount, casNumber, expirationDate, locationInLab, lotOrderNumber, manufacturer, materialName, receiveDate, type);
         finish();
     }
 
-//    private void writeNewChemical(Long bottleCount, String casNumber, String expirationDate, String locationInLab, String lotOrderNumber, String manufacturer, String materialName, String receiveDate, String type) {
-//        Chemicals chemical = new Chemicals(bottleCount, casNumber, expirationDate, locationInLab, lotOrderNumber, manufacturer, materialName, receiveDate, type);
-//
-//    }
+    private void writeNewChemical(Long bottleCount, String casNumber, String expirationDate, String locationInLab, String lotOrderNumber, String manufacturer, String materialName, String receiveDate, String type) {
+        Chemicals lastChemical = Parcels.unwrap(getIntent().getParcelableExtra("lastChemical"));
+        long id = lastChemical.getId() + 1;
+        Chemicals chemical = new Chemicals(bottleCount, id, casNumber, expirationDate, locationInLab, lotOrderNumber, manufacturer, materialName, receiveDate, type);
+        myRef.child(String.valueOf(chemical.getId())).setValue(chemical);
+    }
 }

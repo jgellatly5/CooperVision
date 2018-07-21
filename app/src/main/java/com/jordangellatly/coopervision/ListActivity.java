@@ -106,6 +106,10 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
     @OnClick(R.id.fab)
     public void addChemical() {
         Intent intent = new Intent(ListActivity.this, CreateActivity.class);
+        Bundle bundle = new Bundle();
+        Chemicals chemicals = chemicalArrayList.get(chemicalArrayList.size() - 1);
+        bundle.putParcelable("lastChemical", Parcels.wrap(chemicals));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
@@ -116,6 +120,7 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         chemicalList.setAdapter(adapter);
         chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
         progressBar.setVisibility(ProgressBar.INVISIBLE);
+
     }
 
     @Override
@@ -166,6 +171,12 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         intent.putExtras(bundle);
         startActivityForResult(intent, REQUEST_CODE);
     }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        Toast.makeText(this, "size: " + String.valueOf(chemicalArrayList.size() - 1), Toast.LENGTH_SHORT).show();
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
