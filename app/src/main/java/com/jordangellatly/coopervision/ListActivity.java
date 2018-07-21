@@ -172,28 +172,18 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         startActivityForResult(intent, REQUEST_CODE);
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        Toast.makeText(this, "size: " + String.valueOf(chemicalArrayList.size() - 1), Toast.LENGTH_SHORT).show();
-//    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             int position = data.getIntExtra("position", -1);
             String stringExtra = data.getStringExtra("intent");
-            Toast.makeText(this, stringExtra, Toast.LENGTH_SHORT).show();
             if (stringExtra.equals("remove")) {
                 adapter.removeAt(position);
-                Toast.makeText(this, "Removing Item", Toast.LENGTH_SHORT).show();
             }
             if (stringExtra.equals("update")) {
+                progressBar.setVisibility(ProgressBar.VISIBLE);
+                adapter.update();
                 fetchListData();
-                adapter.notifyItemChanged(position);
-                adapter.notifyItemRangeChanged(position, chemicalArrayList.size());
-//                adapter.updateAt(position);
-                Toast.makeText(this, "Updating List", Toast.LENGTH_SHORT).show();
             }
         }
     }
