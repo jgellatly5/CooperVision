@@ -26,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import org.parceler.Parcels;
 
@@ -75,7 +76,12 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
     private void fetchListData() {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("chemicals");
-        myRef.addChildEventListener(new ChildEventListener() {
+
+        String filter = getIntent().getStringExtra("filter");
+        Toast.makeText(this, "filterExtra: " + filter, Toast.LENGTH_SHORT).show();
+        Query filterData = myRef.orderByChild("locationInLab").equalTo(filter);
+
+        filterData.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 getFirebaseData(dataSnapshot);

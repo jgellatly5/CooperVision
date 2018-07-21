@@ -27,6 +27,8 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
     @BindView(R.id.btn_search)
     Button btnSearch;
 
+    private Intent intentToListActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,22 +40,20 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         locationSelection.setAdapter(adapter);
         locationSelection.setOnItemSelectedListener(this);
+
+        intentToListActivity = new Intent(FilterActivity.this, ListActivity.class);
     }
 
     @OnClick(R.id.btn_search)
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_search:
-                Intent intent = new Intent(FilterActivity.this, ListActivity.class);
-                startActivity(intent);
-                break;
-        }
+    public void search(View view) {
+        startActivity(intentToListActivity);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String selection = adapterView.getItemAtPosition(i).toString();
-        Toast.makeText(this, "You selected: " + selection, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "selection: " + selection, Toast.LENGTH_SHORT).show();
+        intentToListActivity.putExtra("filter", selection);
     }
 
     @Override
