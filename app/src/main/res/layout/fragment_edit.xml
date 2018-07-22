@@ -22,11 +22,13 @@
         android:layout_below="@id/image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:autoSizeTextType="uniform"
         android:gravity="center"
         android:hint="@string/chemical_name"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <TableLayout
@@ -180,6 +182,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
+                android:inputType="number"
                 android:hint="@string/bottle_count"
                 android:padding="@dimen/paddingEditText"
                 android:paddingBottom="@dimen/paddingTable"
