@@ -13,7 +13,8 @@
         android:theme="@style/PurpleTheme">
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/PurpleTheme">
+            android:theme="@style/PurpleTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,17 +23,22 @@
         </activity>
         <activity
             android:name=".SignupActivity"
-            android:theme="@style/RedTheme" />
+            android:theme="@style/RedTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ListActivity"
-            android:theme="@style/ListActivityTheme"></activity>
-        <activity android:name=".DetailActivity" />
+            android:theme="@style/ListActivityTheme"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".DetailActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".FilterActivity"
-            android:theme="@style/CyanTheme"></activity>
+            android:theme="@style/CyanTheme"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".CreateActivity"
-            android:theme="@style/OrangeTheme" />
+            android:theme="@style/OrangeTheme"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
