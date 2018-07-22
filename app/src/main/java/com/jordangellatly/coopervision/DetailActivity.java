@@ -57,8 +57,6 @@ public class DetailActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    // TODO refactor these two methods into one
-
     private void initToolbarColor() {
         setSupportActionBar(tbDetail);
         ActionBar actionBar = getSupportActionBar();

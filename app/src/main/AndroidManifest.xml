@@ -13,17 +13,7 @@
         android:theme="@style/PurpleTheme">
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/PurpleTheme"/>
-        <activity
-            android:name=".SignupActivity"
-            android:theme="@style/RedTheme"/>
-        <activity
-            android:name=".ListActivity"
-            android:theme="@style/ListActivityTheme"></activity>
-        <activity android:name=".DetailActivity" />
-        <activity
-            android:name=".FilterActivity"
-            android:theme="@style/CyanTheme">
+            android:theme="@style/PurpleTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,9 +21,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".SignupActivity"
+            android:theme="@style/RedTheme" />
+        <activity
+            android:name=".ListActivity"
+            android:theme="@style/ListActivityTheme"></activity>
+        <activity android:name=".DetailActivity" />
+        <activity
+            android:name=".FilterActivity"
+            android:theme="@style/CyanTheme"></activity>
+        <activity
             android:name=".CreateActivity"
-            android:theme="@style/OrangeTheme"
-            />
+            android:theme="@style/OrangeTheme" />
     </application>
 
 </manifest>
