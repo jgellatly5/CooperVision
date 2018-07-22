@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -50,6 +51,8 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
     ProgressBar progressBar;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    @BindView(R.id.tv_empty_list)
+    TextView tvEmptyList;
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;
@@ -64,9 +67,18 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         setContentView(R.layout.activity_list);
         ButterKnife.bind(this);
 
-        progressBar.setVisibility(ProgressBar.VISIBLE);
+        initWidgets();
 
         fetchListData();
+    }
+
+    private void initWidgets() {
+        setSupportActionBar(toolbarSearch);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("");
+        tvEmptyList.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(ProgressBar.VISIBLE);
     }
 
     private void fetchListData() {
@@ -74,8 +86,6 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         myRef = database.getReference("chemicals");
 
         String filter = getIntent().getStringExtra("filter");
-        Toast.makeText(this, "filterExtra: " + filter, Toast.LENGTH_SHORT).show();
-
         if (filter != null) {
             Query filterData = myRef.orderByChild("locationInLab").equalTo(filter);
             filterData.addChildEventListener(new ChildEventListener() {
@@ -151,7 +161,6 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         chemicalList.setAdapter(adapter);
         chemicalList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
         progressBar.setVisibility(ProgressBar.INVISIBLE);
-
     }
 
     @Override
@@ -173,7 +182,11 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
             @Override
             public boolean onQueryTextChange(String s) {
                 adapter.getFilter().filter(s);
-                // TODO make screen for null result
+                if (adapter.getItemCount() == 0) {
+                    tvEmptyList.setVisibility(View.VISIBLE);
+                } else {
+                    tvEmptyList.setVisibility(View.INVISIBLE);
+                }
                 return false;
             }
         });

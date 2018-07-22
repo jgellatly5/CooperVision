@@ -36,7 +36,6 @@ public class DetailActivity extends AppCompatActivity {
 
     private Bundle bundle;
     private int colorChoice;
-    private int chemicalIndex;
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;

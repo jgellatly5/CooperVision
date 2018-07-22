@@ -24,6 +24,7 @@ import butterknife.OnClick;
 public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "SignupActivity";
+
     @BindView(R.id.et_email)
     EditText etEmail;
     @BindView(R.id.et_password)
