@@ -65,10 +65,6 @@ public class ListActivity extends AppCompatActivity implements ChemicalAdapter.C
         ButterKnife.bind(this);
 
         progressBar.setVisibility(ProgressBar.VISIBLE);
-        setSupportActionBar(toolbarSearch);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("");
 
         fetchListData();
     }

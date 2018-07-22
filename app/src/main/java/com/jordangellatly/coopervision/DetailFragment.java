@@ -1,6 +1,8 @@
 package com.jordangellatly.coopervision;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -74,6 +76,8 @@ public class DetailFragment extends Fragment {
     private String title;
     private int page;
 
+    private Chemicals chemicalFromIntent;
+
     public DetailFragment() {
 
     }
@@ -105,7 +109,7 @@ public class DetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initImageColor();
-        Chemicals chemicalFromIntent = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("chemical"));
+        chemicalFromIntent = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("chemical"));
         tvName.setText(chemicalFromIntent.getMaterialName());
         tvLocationValue.setText(chemicalFromIntent.getLocationInLab());
         tvRecDateValue.setText(chemicalFromIntent.getReceiveDate());
@@ -119,7 +123,10 @@ public class DetailFragment extends Fragment {
 
     @OnClick(R.id.btn_request)
     public void requestPurchase() {
-        Toast.makeText(getActivity(), "Request Purchase", Toast.LENGTH_SHORT).show();
+        Intent intentRequest = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "jgellatly5@gmail.com", null));
+        intentRequest.putExtra(Intent.EXTRA_SUBJECT, "Request Order for: " + chemicalFromIntent.getMaterialName());
+        intentRequest.putExtra(Intent.EXTRA_TEXT, "Please place an order for this chemical: " + chemicalFromIntent.getMaterialName());
+        startActivity(Intent.createChooser(intentRequest, "Please choose an email client..."));
         getActivity().finish();
     }
 
