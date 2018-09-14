@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "966645617616",
+    "firebase_url": "https://cooper-vision-15218.firebaseio.com",
+    "project_id": "cooper-vision-15218",
+    "storage_bucket": "cooper-vision-15218.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:966645617616:android:b773d0fc6d4e89f1",
+        "android_client_info": {
+          "package_name": "com.jordangellatly.coopervision"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "966645617616-4sl4pe66ovs7mhc5lelmmfth65ksd3cf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jordangellatly.coopervision",
+            "certificate_hash": "a4b1b1b0da78024b8450c843ddb5d65f1fc5fb2d"
+          }
+        },
+        {
+          "client_id": "966645617616-t61gae5mqtms7mmo3258nf1eu6bk9tao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFp4omcPDZZDqI2LbM1SQM2RPf-JiGm04"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "966645617616-t61gae5mqtms7mmo3258nf1eu6bk9tao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
