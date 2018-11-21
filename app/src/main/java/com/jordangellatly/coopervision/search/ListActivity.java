@@ -1,4 +1,4 @@
-package com.jordangellatly.coopervision;
+package com.jordangellatly.coopervision.search;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -13,14 +13,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +25,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.jordangellatly.coopervision.details.CreateActivity;
+import com.jordangellatly.coopervision.details.DetailActivity;
+import com.jordangellatly.coopervision.R;
+import com.jordangellatly.coopervision.models.Chemicals;
 
 import org.parceler.Parcels;
 

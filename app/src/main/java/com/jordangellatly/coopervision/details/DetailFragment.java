@@ -1,7 +1,6 @@
-package com.jordangellatly.coopervision;
+package com.jordangellatly.coopervision.details;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.jordangellatly.coopervision.R;
+import com.jordangellatly.coopervision.models.Chemicals;
 
 import org.parceler.Parcels;
 

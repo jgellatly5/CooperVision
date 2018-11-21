@@ -1,4 +1,4 @@
-package com.jordangellatly.coopervision;
+package com.jordangellatly.coopervision.details;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

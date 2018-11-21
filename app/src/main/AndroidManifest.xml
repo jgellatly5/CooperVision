@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/PurpleTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".auth.LoginActivity"
             android:theme="@style/PurpleTheme"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -22,21 +22,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignupActivity"
+            android:name=".auth.SignupActivity"
             android:theme="@style/RedTheme"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ListActivity"
+            android:name=".search.ListActivity"
             android:theme="@style/ListActivityTheme"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".DetailActivity"
+        <activity android:name=".details.DetailActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".FilterActivity"
+            android:name=".search.FilterActivity"
             android:theme="@style/CyanTheme"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".CreateActivity"
+            android:name=".details.CreateActivity"
             android:theme="@style/OrangeTheme"
             android:screenOrientation="portrait"/>
     </application>

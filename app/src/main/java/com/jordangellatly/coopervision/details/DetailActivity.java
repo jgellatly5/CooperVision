@@ -1,4 +1,4 @@
-package com.jordangellatly.coopervision;
+package com.jordangellatly.coopervision.details;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.jordangellatly.coopervision.R;
+import com.jordangellatly.coopervision.models.Chemicals;
 
 import org.parceler.Parcels;
 

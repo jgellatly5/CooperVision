@@ -1,4 +1,4 @@
-package com.jordangellatly.coopervision;
+package com.jordangellatly.coopervision.models;
 
 import org.parceler.Parcel;
 
