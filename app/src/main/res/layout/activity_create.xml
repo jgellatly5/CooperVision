@@ -188,6 +188,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
+                android:text="0"
                 android:inputType="number"
                 android:hint="@string/bottle_count"
                 android:padding="@dimen/paddingEditText"
