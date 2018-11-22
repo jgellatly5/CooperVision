@@ -26,18 +26,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-    val TAG = "LoginActivity"
-
-    @BindView(R.id.et_email)
-    private val etEmail: EditText? = null
-    @BindView(R.id.et_password)
-    internal var etPassword: EditText? = null
-    @BindView(R.id.btn_login)
-    internal var btnLogin: Button? = null
-    @BindView(R.id.tv_switch_signup)
-    internal var tvSwitchSignup: TextView? = null
-
-    // Firebase
+    private val TAG = "LoginActivity"
     private var mAuth: FirebaseAuth? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,29 +35,22 @@ class LoginActivity : AppCompatActivity() {
         ButterKnife.bind(this)
 
         mAuth = FirebaseAuth.getInstance()
-    }
 
-    @OnClick(R.id.btn_login, R.id.tv_switch_signup)
-    fun onViewClicked(view: View) {
-        when (view.id) {
-            R.id.btn_login -> login()
-            R.id.tv_switch_signup -> {
-                val intent = Intent(this@LoginActivity, SignupActivity::class.java)
-                startActivity(intent)
-            }
+        btn_login.setOnClickListener { v -> login()}
+        tv_switch_signup.setOnClickListener { v ->
+            val intent = Intent(this@LoginActivity, SignupActivity::class.java)
+            startActivity(intent)
         }
     }
 
     private fun login() {
-        val email = etEmail!!.text.toString()
-        val password = etPassword!!.text.toString()
+        val email = et_email.text.toString()
+        val password = et_password.text.toString()
 
-        if (email == "") {
-            Toast.makeText(this, "Please enter your email.", Toast.LENGTH_SHORT).show()
-        } else if (password == "") {
-            Toast.makeText(this, "Please enter your password.", Toast.LENGTH_SHORT).show()
-        } else {
-            mAuth!!.signInWithEmailAndPassword(email, password).addOnCompleteListener(this@LoginActivity) { task ->
+        when {
+            email == "" -> Toast.makeText(this, "Please enter your email.", Toast.LENGTH_SHORT).show()
+            password == "" -> Toast.makeText(this, "Please enter your password.", Toast.LENGTH_SHORT).show()
+            else -> mAuth!!.signInWithEmailAndPassword(email, password).addOnCompleteListener(this@LoginActivity) { task ->
                 if (task.isSuccessful) {
                     val intent = Intent(this@LoginActivity, FilterActivity::class.java)
                     startActivity(intent)
