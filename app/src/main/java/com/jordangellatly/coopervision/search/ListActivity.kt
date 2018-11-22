@@ -5,38 +5,21 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.TextView
-
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
+import com.google.firebase.database.*
+import com.jordangellatly.coopervision.R
 import com.jordangellatly.coopervision.details.CreateActivity
 import com.jordangellatly.coopervision.details.DetailActivity
-import com.jordangellatly.coopervision.R
 import com.jordangellatly.coopervision.models.Chemicals
-
-import org.parceler.Parcels
-
-import java.util.ArrayList
-
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import kotlinx.android.synthetic.main.activity_list.*
+import org.parceler.Parcels
+import java.util.*
 
 class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListener {
 
@@ -45,7 +28,6 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
 
     private var database: FirebaseDatabase? = null
     private var myRef: DatabaseReference? = null
-
     private var adapter: ChemicalAdapter? = null
 
     private val chemicalArrayList = ArrayList<Chemicals>()
@@ -187,10 +169,10 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
         startActivityForResult(intent, REQUEST_CODE)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val position = data.getIntExtra("position", -1)
-            val stringExtra = data.getStringExtra("intent")
+            val position = data!!.getIntExtra("position", -1)
+            val stringExtra = data!!.getStringExtra("intent")
             if (stringExtra == "remove") {
                 adapter!!.removeAt(position)
             }
