@@ -20,7 +20,7 @@ public class DetailPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return DetailFragment.newInstance("Detail Fragment", 0);
+                return DetailFragment.Companion.newInstance("Detail Fragment", 0);
             case 1:
                 return EditFragment.newInstance("Edit Fragment", 1);
             default:
