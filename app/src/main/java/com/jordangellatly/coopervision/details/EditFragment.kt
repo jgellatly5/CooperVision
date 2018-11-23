@@ -17,23 +17,14 @@ import org.parceler.Parcels
 import java.util.*
 
 class EditFragment : Fragment() {
-
-    private var title: String? = null
-    private var page: Int = 0
-
-    private var database: FirebaseDatabase? = null
-    private var myRef: DatabaseReference? = null
-
-    private var chemicalFromIntent: Chemicals? = null
-    private var bundleFromListActivity: Bundle? = null
+    private lateinit var myRef: DatabaseReference
+    private lateinit var chemicalFromIntent: Chemicals
+    private lateinit var bundleFromListActivity: Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        page = arguments!!.getInt(ARG_PARAM1, 0)
-        title = arguments!!.getString(ARG_PARAM2)
-
-        database = FirebaseDatabase.getInstance()
-        myRef = database!!.getReference("chemicals")
+        val database = FirebaseDatabase.getInstance()
+        myRef = database.getReference("chemicals")
         chemicalFromIntent = Parcels.unwrap<Chemicals>(activity!!.intent.getParcelableExtra<Parcelable>("chemical"))
     }
 
@@ -47,21 +38,21 @@ class EditFragment : Fragment() {
 
         btn_update.setOnClickListener { v -> update() }
 
-        et_name.setText(chemicalFromIntent!!.materialName)
-        et_location_value.setText(chemicalFromIntent!!.locationInLab)
-        et_rec_date_value.setText(chemicalFromIntent!!.receiveDate)
-        et_exp_date_value.setText(chemicalFromIntent!!.expirationDate)
-        et_lot_order_value.setText(chemicalFromIntent!!.lotOrderNumber)
-        et_bottle_count_value.setText(chemicalFromIntent!!.bottleCount!!.toString())
-        et_cas_number_value.setText(chemicalFromIntent!!.casNumber)
-        et_manufacturer_value.setText(chemicalFromIntent!!.manufacturer)
-        et_type_value.setText(chemicalFromIntent!!.type)
+        et_name.setText(chemicalFromIntent.materialName)
+        et_location_value.setText(chemicalFromIntent.locationInLab)
+        et_rec_date_value.setText(chemicalFromIntent.receiveDate)
+        et_exp_date_value.setText(chemicalFromIntent.expirationDate)
+        et_lot_order_value.setText(chemicalFromIntent.lotOrderNumber)
+        et_bottle_count_value.setText(chemicalFromIntent.bottleCount.toString())
+        et_cas_number_value.setText(chemicalFromIntent.casNumber)
+        et_manufacturer_value.setText(chemicalFromIntent.manufacturer)
+        et_type_value.setText(chemicalFromIntent.type)
     }
 
     private fun initImageColor() {
         bundleFromListActivity = activity!!.intent.extras
         val length = 4
-        val colorChoice = bundleFromListActivity!!.getInt("position") % length
+        val colorChoice = bundleFromListActivity.getInt("position") % length
         when (colorChoice) {
             0 -> {
                 image.setImageResource(R.drawable.cooper_drop_orange)
@@ -93,19 +84,17 @@ class EditFragment : Fragment() {
         chemicalUpdates["materialName"] = et_name.text.toString()
         chemicalUpdates["receiveDate"] = et_rec_date_value.text.toString()
         chemicalUpdates["type"] = et_type_value.text.toString()
-        myRef!!.child(chemicalFromIntent!!.id.toString()).updateChildren(chemicalUpdates)
+        myRef.child(chemicalFromIntent.id.toString()).updateChildren(chemicalUpdates)
 
         val backToListIntent = Intent()
-        bundleFromListActivity!!.putString("intent", "update")
-        backToListIntent.putExtras(bundleFromListActivity!!)
+        bundleFromListActivity.putString("intent", "update")
+        backToListIntent.putExtras(bundleFromListActivity)
         activity!!.setResult(Activity.RESULT_OK, backToListIntent)
         activity!!.finish()
     }
 
     companion object {
-
         private val TAG = "EditFragment"
-
         private val ARG_PARAM1 = "int"
         private val ARG_PARAM2 = "title"
 

@@ -25,12 +25,8 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
 
     private val TAG = "ListActivity"
     private val REQUEST_CODE = 1
-
-    private var database: FirebaseDatabase? = null
-    private var myRef: DatabaseReference? = null
-    private var adapter: ChemicalAdapter? = null
-
     private val chemicalArrayList = ArrayList<Chemicals>()
+    private lateinit var adapter: ChemicalAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,12 +49,12 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
     }
 
     private fun fetchListData() {
-        database = FirebaseDatabase.getInstance()
-        myRef = database!!.getReference("chemicals")
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("chemicals")
 
         val filter = intent.getStringExtra("filter")
         if (filter != null) {
-            val filterData = myRef!!.orderByChild("locationInLab").equalTo(filter)
+            val filterData = myRef.orderByChild("locationInLab").equalTo(filter)
             filterData.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                     getFirebaseData(dataSnapshot)
@@ -81,7 +77,7 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
                 }
             })
         } else {
-            myRef!!.addChildEventListener(object : ChildEventListener {
+            myRef.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                     getFirebaseData(dataSnapshot)
                 }
@@ -140,8 +136,8 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
             }
 
             override fun onQueryTextChange(s: String): Boolean {
-                adapter!!.filter.filter(s)
-                if (adapter!!.itemCount == 0) {
+                adapter.filter.filter(s)
+                if (adapter.itemCount == 0) {
                     tv_empty_list.visibility = View.VISIBLE
                 } else {
                     tv_empty_list.visibility = View.INVISIBLE
@@ -174,11 +170,11 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
             val position = data!!.getIntExtra("position", -1)
             val stringExtra = data!!.getStringExtra("intent")
             if (stringExtra == "remove") {
-                adapter!!.removeAt(position)
+                adapter.removeAt(position)
             }
             if (stringExtra == "update") {
                 progress_bar.visibility = ProgressBar.VISIBLE
-                adapter!!.update()
+                adapter.update()
                 fetchListData()
             }
         }

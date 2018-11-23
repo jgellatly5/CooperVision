@@ -12,8 +12,7 @@ import kotlinx.android.synthetic.main.activity_create.*
 import org.parceler.Parcels
 
 class CreateActivity : AppCompatActivity() {
-    private var database: FirebaseDatabase? = null
-    private var myRef: DatabaseReference? = null
+    private lateinit var myRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +25,8 @@ class CreateActivity : AppCompatActivity() {
 
         btn_create.setBackgroundResource(R.drawable.button_orange)
 
-        database = FirebaseDatabase.getInstance()
-        myRef = database!!.getReference("chemicals")
+        val database = FirebaseDatabase.getInstance()
+        myRef = database.getReference("chemicals")
 
         btn_create.setOnClickListener { v ->
             val bottleCount = java.lang.Long.parseLong(et_bottle_count_value.text.toString())
@@ -46,9 +45,9 @@ class CreateActivity : AppCompatActivity() {
 
     private fun writeNewChemical(bottleCount: Long, casNumber: String, expirationDate: String, locationInLab: String, lotOrderNumber: String, manufacturer: String, materialName: String, receiveDate: String, type: String) {
         val lastChemical = Parcels.unwrap<Chemicals>(intent.getParcelableExtra<Parcelable>("lastChemical"))
-        val id = lastChemical.id!! + 1
+        val id = lastChemical.id + 1
         val chemical = Chemicals(bottleCount, id, casNumber, expirationDate, locationInLab, lotOrderNumber, manufacturer, materialName, receiveDate, type)
-        myRef!!.child(chemical.id.toString()).setValue(chemical)
+        myRef.child(chemical.id.toString()).setValue(chemical)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

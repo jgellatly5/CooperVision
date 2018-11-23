@@ -11,8 +11,7 @@ import kotlinx.android.synthetic.main.activity_filter.*
 
 class FilterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
-    private var intentWithFilter: Intent? = null
-    private var intentSearchAll: Intent? = null
+    private lateinit var intentWithFilter: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,15 +24,14 @@ class FilterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         location_selection.onItemSelectedListener = this
 
         intentWithFilter = Intent(this@FilterActivity, ListActivity::class.java)
-        intentSearchAll = Intent(this@FilterActivity, ListActivity::class.java)
-
         btn_search.setOnClickListener { v -> startActivity(intentWithFilter) }
+        val intentSearchAll = Intent(this@FilterActivity, ListActivity::class.java)
         btn_search_all.setOnClickListener { v -> startActivity(intentSearchAll) }
     }
 
     override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
         val selection = adapterView.getItemAtPosition(i).toString()
-        intentWithFilter!!.putExtra("filter", selection)
+        intentWithFilter.putExtra("filter", selection)
     }
 
     override fun onNothingSelected(adapterView: AdapterView<*>) {

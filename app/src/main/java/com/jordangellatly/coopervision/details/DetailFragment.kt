@@ -15,17 +15,7 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 import org.parceler.Parcels
 
 class DetailFragment : Fragment() {
-
-    private var title: String? = null
-    private var page: Int = 0
-
-    private var chemicalFromIntent: Chemicals? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        page = arguments!!.getInt(ARG_PARAM1, 0)
-        title = arguments!!.getString(ARG_PARAM2)
-    }
+    private lateinit var chemicalFromIntent: Chemicals
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_detail, container, false)
@@ -35,22 +25,22 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initImageColor()
         chemicalFromIntent = Parcels.unwrap<Chemicals>(activity!!.intent.getParcelableExtra<Parcelable>("chemical"))
-        tv_name.text = chemicalFromIntent!!.materialName
-        tv_location_value.text = chemicalFromIntent!!.locationInLab
-        tv_rec_date_value.text = chemicalFromIntent!!.receiveDate
-        tv_exp_date_value.text = chemicalFromIntent!!.expirationDate
-        tv_lot_order_value.text = chemicalFromIntent!!.lotOrderNumber
-        tv_bottle_count_value.text = chemicalFromIntent!!.bottleCount!!.toString()
-        tv_cas_number_value.text = chemicalFromIntent!!.casNumber
-        tv_manufacturer_value.text = chemicalFromIntent!!.manufacturer
-        tv_type_value.text = chemicalFromIntent!!.type
+        tv_name.text = chemicalFromIntent.materialName
+        tv_location_value.text = chemicalFromIntent.locationInLab
+        tv_rec_date_value.text = chemicalFromIntent.receiveDate
+        tv_exp_date_value.text = chemicalFromIntent.expirationDate
+        tv_lot_order_value.text = chemicalFromIntent.lotOrderNumber
+        tv_bottle_count_value.text = chemicalFromIntent.bottleCount!!.toString()
+        tv_cas_number_value.text = chemicalFromIntent.casNumber
+        tv_manufacturer_value.text = chemicalFromIntent.manufacturer
+        tv_type_value.text = chemicalFromIntent.type
     }
 
     @OnClick(R.id.btn_request)
     fun requestPurchase() {
         val intentRequest = Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "jgellatly5@gmail.com", null))
-        intentRequest.putExtra(Intent.EXTRA_SUBJECT, "Request Order for: " + chemicalFromIntent!!.materialName)
-        intentRequest.putExtra(Intent.EXTRA_TEXT, "Please place an order for this chemical: " + chemicalFromIntent!!.materialName)
+        intentRequest.putExtra(Intent.EXTRA_SUBJECT, "Request Order for: " + chemicalFromIntent.materialName)
+        intentRequest.putExtra(Intent.EXTRA_TEXT, "Please place an order for this chemical: " + chemicalFromIntent.materialName)
         startActivity(Intent.createChooser(intentRequest, "Please choose an email client..."))
         activity!!.finish()
     }
@@ -81,9 +71,7 @@ class DetailFragment : Fragment() {
     }
 
     companion object {
-
         private val TAG = "DetailFragment"
-
         private val ARG_PARAM1 = "int"
         private val ARG_PARAM2 = "title"
 

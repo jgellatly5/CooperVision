@@ -13,14 +13,11 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity() {
 
     private val TAG = "LoginActivity"
-    private var mAuth: FirebaseAuth? = null
+    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        mAuth = FirebaseAuth.getInstance()
-
         btn_login.setOnClickListener { v -> login()}
         tv_switch_signup.setOnClickListener { v ->
             val intent = Intent(this@LoginActivity, SignupActivity::class.java)
@@ -31,11 +28,10 @@ class LoginActivity : AppCompatActivity() {
     private fun login() {
         val email = et_email.text.toString()
         val password = et_password.text.toString()
-
         when {
             email == "" -> Toast.makeText(this, "Please enter your email.", Toast.LENGTH_SHORT).show()
             password == "" -> Toast.makeText(this, "Please enter your password.", Toast.LENGTH_SHORT).show()
-            else -> mAuth!!.signInWithEmailAndPassword(email, password).addOnCompleteListener(this@LoginActivity) { task ->
+            else -> mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this@LoginActivity) { task ->
                 if (task.isSuccessful) {
                     val intent = Intent(this@LoginActivity, FilterActivity::class.java)
                     startActivity(intent)

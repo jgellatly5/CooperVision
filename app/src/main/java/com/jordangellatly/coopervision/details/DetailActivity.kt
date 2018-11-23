@@ -19,21 +19,18 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import org.parceler.Parcels
 
 class DetailActivity : AppCompatActivity() {
-    internal lateinit var detailPagerAdapter: FragmentPagerAdapter
-
-    private var bundle: Bundle? = null
     private var colorChoice: Int = 0
-
-    private var database: FirebaseDatabase? = null
-    private var myRef: DatabaseReference? = null
+    private lateinit var detailPagerAdapter: FragmentPagerAdapter
+    private lateinit var bundle: Bundle
+    private lateinit var myRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setDetailTheme()
         setContentView(R.layout.activity_detail)
 
-        database = FirebaseDatabase.getInstance()
-        myRef = database!!.getReference("chemicals")
+        val database = FirebaseDatabase.getInstance()
+        myRef = database.getReference("chemicals")
 
         initToolbarColor()
 
@@ -58,7 +55,7 @@ class DetailActivity : AppCompatActivity() {
     private fun setDetailTheme() {
         bundle = intent.extras
         val length = 4
-        colorChoice = bundle!!.getInt("position") % length
+        colorChoice = bundle.getInt("position") % length
         when (colorChoice) {
             0 -> setTheme(R.style.OrangeTheme)
             1 -> setTheme(R.style.CyanTheme)
@@ -88,10 +85,10 @@ class DetailActivity : AppCompatActivity() {
 
     private fun removeChemical() {
         val chemical = Parcels.unwrap<Chemicals>(intent.getParcelableExtra<Parcelable>("chemical"))
-        myRef!!.child(chemical.id.toString()).removeValue()
+        myRef.child(chemical.id.toString()).removeValue()
         val returnIntent = Intent()
-        bundle!!.putString("intent", "remove")
-        returnIntent.putExtras(bundle!!)
+        bundle.putString("intent", "remove")
+        returnIntent.putExtras(bundle)
         setResult(Activity.RESULT_OK, returnIntent)
         finish()
     }

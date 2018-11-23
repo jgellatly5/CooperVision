@@ -15,7 +15,7 @@ import java.util.*
 class ChemicalAdapter(private val mChemicals: MutableList<Chemicals>, private val listener: ChemicalAdapterListener) : RecyclerView.Adapter<ChemicalAdapter.ViewHolder>(), Filterable {
     private val TAG = "ChemicalAdapter"
     var colorChoice: Int = 0
-    private var mChemicalsFiltered: MutableList<Chemicals>? = null
+    private var mChemicalsFiltered: MutableList<Chemicals>
 
     init {
         this.mChemicalsFiltered = mChemicals
@@ -30,7 +30,7 @@ class ChemicalAdapter(private val mChemicals: MutableList<Chemicals>, private va
                 } else {
                     val filteredList = ArrayList<Chemicals>()
                     for (row in mChemicals) {
-                        if (row.materialName!!.toLowerCase().startsWith(charString.toLowerCase())) {
+                        if (row.materialName.toLowerCase().startsWith(charString.toLowerCase())) {
                             filteredList.add(row)
                         }
                     }
@@ -59,7 +59,7 @@ class ChemicalAdapter(private val mChemicals: MutableList<Chemicals>, private va
             mImage = itemView.findViewById(R.id.logo)
             itemView.setOnClickListener {
                 val position = adapterPosition
-                listener.onChemicalSelected(mChemicalsFiltered!![position], position)
+                listener.onChemicalSelected(mChemicalsFiltered[position], position)
             }
         }
     }
@@ -72,7 +72,7 @@ class ChemicalAdapter(private val mChemicals: MutableList<Chemicals>, private va
     }
 
     override fun onBindViewHolder(holder: ChemicalAdapter.ViewHolder, position: Int) {
-        val chemicals = mChemicalsFiltered!![position]
+        val chemicals = mChemicalsFiltered[position]
 
         val length = 4
         colorChoice = position % length
@@ -87,7 +87,7 @@ class ChemicalAdapter(private val mChemicals: MutableList<Chemicals>, private va
     }
 
     override fun getItemCount(): Int {
-        return mChemicalsFiltered!!.size
+        return mChemicalsFiltered.size
     }
 
     interface ChemicalAdapterListener {
@@ -95,13 +95,13 @@ class ChemicalAdapter(private val mChemicals: MutableList<Chemicals>, private va
     }
 
     fun removeAt(position: Int) {
-        mChemicalsFiltered!!.removeAt(position)
+        mChemicalsFiltered.removeAt(position)
         notifyItemRemoved(position)
-        notifyItemRangeChanged(position, mChemicalsFiltered!!.size)
+        notifyItemRangeChanged(position, mChemicalsFiltered.size)
     }
 
     fun update() {
-        mChemicalsFiltered!!.clear()
+        mChemicalsFiltered.clear()
         notifyDataSetChanged()
     }
 }
