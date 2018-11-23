@@ -47,15 +47,15 @@ class EditFragment : Fragment() {
 
         btn_update.setOnClickListener { v -> update() }
 
-        et_name.setText(chemicalFromIntent!!.getMaterialName())
-        et_location_value.setText(chemicalFromIntent!!.getLocationInLab())
-        et_rec_date_value.setText(chemicalFromIntent!!.getReceiveDate())
-        et_exp_date_value.setText(chemicalFromIntent!!.getExpirationDate())
-        et_lot_order_value.setText(chemicalFromIntent!!.getLotOrderNumber())
-        et_bottle_count_value.setText(chemicalFromIntent!!.getBottleCount()!!.toString())
-        et_cas_number_value.setText(chemicalFromIntent!!.getCasNumber())
-        et_manufacturer_value.setText(chemicalFromIntent!!.getManufacturer())
-        et_type_value.setText(chemicalFromIntent!!.getType())
+        et_name.setText(chemicalFromIntent!!.materialName)
+        et_location_value.setText(chemicalFromIntent!!.locationInLab)
+        et_rec_date_value.setText(chemicalFromIntent!!.receiveDate)
+        et_exp_date_value.setText(chemicalFromIntent!!.expirationDate)
+        et_lot_order_value.setText(chemicalFromIntent!!.lotOrderNumber)
+        et_bottle_count_value.setText(chemicalFromIntent!!.bottleCount!!.toString())
+        et_cas_number_value.setText(chemicalFromIntent!!.casNumber)
+        et_manufacturer_value.setText(chemicalFromIntent!!.manufacturer)
+        et_type_value.setText(chemicalFromIntent!!.type)
     }
 
     private fun initImageColor() {
@@ -93,7 +93,7 @@ class EditFragment : Fragment() {
         chemicalUpdates["materialName"] = et_name.text.toString()
         chemicalUpdates["receiveDate"] = et_rec_date_value.text.toString()
         chemicalUpdates["type"] = et_type_value.text.toString()
-        myRef!!.child(chemicalFromIntent!!.getId().toString()).updateChildren(chemicalUpdates)
+        myRef!!.child(chemicalFromIntent!!.id.toString()).updateChildren(chemicalUpdates)
 
         val backToListIntent = Intent()
         bundleFromListActivity!!.putString("intent", "update")

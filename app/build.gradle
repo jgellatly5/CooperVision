@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -39,6 +41,11 @@ dependencies {
     // Parceler
     implementation 'org.parceler:parceler-api:1.1.11'
     annotationProcessor 'org.parceler:parceler:1.1.11'
+
+    // Paper Parceler
+    implementation 'nz.bradcampbell:paperparcel:2.0.6'
+    implementation 'nz.bradcampbell:paperparcel-kotlin:2.0.6'
+    kapt 'nz.bradcampbell:paperparcel-compiler:2.0.6'
 
     //Firebase
     implementation 'com.google.firebase:firebase-core:16.0.0'

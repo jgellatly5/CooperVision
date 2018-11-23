@@ -30,7 +30,7 @@ class ChemicalAdapter(private val mChemicals: MutableList<Chemicals>, private va
                 } else {
                     val filteredList = ArrayList<Chemicals>()
                     for (row in mChemicals) {
-                        if (row.getMaterialName().toLowerCase().startsWith(charString.toLowerCase())) {
+                        if (row.materialName!!.toLowerCase().startsWith(charString.toLowerCase())) {
                             filteredList.add(row)
                         }
                     }
@@ -83,7 +83,7 @@ class ChemicalAdapter(private val mChemicals: MutableList<Chemicals>, private va
             3 -> holder.mImage.setImageResource(R.drawable.cooper_drop_purple)
         }
         val chemicalName = holder.mChemicalName
-        chemicalName.text = chemicals.getMaterialName()
+        chemicalName.text = chemicals.materialName
     }
 
     override fun getItemCount(): Int {
