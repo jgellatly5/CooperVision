@@ -22,7 +22,7 @@ public class DetailPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return DetailFragment.Companion.newInstance("Detail Fragment", 0);
             case 1:
-                return EditFragment.newInstance("Edit Fragment", 1);
+                return EditFragment.Companion.newInstance("Edit Fragment", 1);
             default:
                 return null;
         }
