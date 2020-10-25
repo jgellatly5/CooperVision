@@ -1,6 +1,12 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
     <codeStyleSettings language="XML">
+<<<<<<< HEAD
+=======
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+>>>>>>> 963b68bc6f1ec9e71aee3d56f829f143a81b6ddf
       <arrangement>
         <rules>
           <section>
