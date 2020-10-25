@@ -7,7 +7,7 @@ import android.view.MenuItem
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jordangellatly.coopervision.R
-import com.jordangellatly.coopervision.models.Chemicals
+import com.jordangellatly.coopervision.models.Chemical
 import kotlinx.android.synthetic.main.activity_create.*
 import org.parceler.Parcels
 
@@ -44,9 +44,9 @@ class CreateActivity : AppCompatActivity() {
     }
 
     private fun writeNewChemical(bottleCount: Long, casNumber: String, expirationDate: String, locationInLab: String, lotOrderNumber: String, manufacturer: String, materialName: String, receiveDate: String, type: String) {
-        val lastChemical = Parcels.unwrap<Chemicals>(intent.getParcelableExtra<Parcelable>("lastChemical"))
+        val lastChemical = Parcels.unwrap<Chemical>(intent.getParcelableExtra<Parcelable>("lastChemical"))
         val id = lastChemical.id + 1
-        val chemical = Chemicals(bottleCount, id, casNumber, expirationDate, locationInLab, lotOrderNumber, manufacturer, materialName, receiveDate, type)
+        val chemical = Chemical(bottleCount, id, casNumber, expirationDate, locationInLab, lotOrderNumber, manufacturer, materialName, receiveDate, type)
         myRef.child(chemical.id.toString()).setValue(chemical)
     }
 

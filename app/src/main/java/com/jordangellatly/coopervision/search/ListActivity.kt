@@ -16,14 +16,14 @@ import com.google.firebase.database.*
 import com.jordangellatly.coopervision.R
 import com.jordangellatly.coopervision.details.CreateActivity
 import com.jordangellatly.coopervision.details.DetailActivity
-import com.jordangellatly.coopervision.models.Chemicals
+import com.jordangellatly.coopervision.models.Chemical
 import kotlinx.android.synthetic.main.activity_list.*
 import org.parceler.Parcels
 import java.util.*
 
 class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListener {
     private val REQUEST_CODE = 1
-    private val chemicalArrayList = ArrayList<Chemicals>()
+    private val chemicalArrayList = ArrayList<Chemical>()
     private lateinit var chemicalAdapter: ChemicalAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,7 +110,7 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
     }
 
     private fun getFirebaseData(dataSnapshot: DataSnapshot) {
-        val chemicals = dataSnapshot.getValue(Chemicals::class.java)
+        val chemicals = dataSnapshot.getValue(Chemical::class.java)
         if (chemicals != null) {
             chemicalArrayList.add(chemicals)
         }
@@ -157,10 +157,10 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onChemicalSelected(chemicals: Chemicals, position: Int) {
+    override fun onChemicalSelected(chemical: Chemical, position: Int) {
         val bundle = Bundle().apply {
             putInt("position", position)
-            putParcelable("chemical", Parcels.wrap(chemicals))
+            putParcelable("chemical", Parcels.wrap(chemical))
         }
         val intent = Intent(this@ListActivity, DetailActivity::class.java).apply {
             putExtras(bundle)
@@ -170,8 +170,7 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val stringExtra = data?.getStringExtra("intent")
-            when (stringExtra) {
+            when (data?.getStringExtra("intent")) {
                 "update" -> {
                     progress_bar.visibility = ProgressBar.VISIBLE
                     chemicalAdapter.update()

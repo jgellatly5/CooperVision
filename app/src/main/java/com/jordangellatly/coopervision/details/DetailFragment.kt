@@ -10,12 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.OnClick
 import com.jordangellatly.coopervision.R
-import com.jordangellatly.coopervision.models.Chemicals
+import com.jordangellatly.coopervision.models.Chemical
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.parceler.Parcels
 
 class DetailFragment : Fragment() {
-    private lateinit var chemicalFromIntent: Chemicals
+    private lateinit var chemicalFromIntent: Chemical
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_detail, container, false)
@@ -24,7 +24,7 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initImageColor()
-        chemicalFromIntent = Parcels.unwrap<Chemicals>(activity!!.intent.getParcelableExtra<Parcelable>("chemical"))
+        chemicalFromIntent = Parcels.unwrap<Chemical>(activity!!.intent.getParcelableExtra<Parcelable>("chemical"))
         tv_name.text = chemicalFromIntent.materialName
         tv_location_value.text = chemicalFromIntent.locationInLab
         tv_rec_date_value.text = chemicalFromIntent.receiveDate

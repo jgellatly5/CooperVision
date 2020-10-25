@@ -11,21 +11,21 @@ import android.view.ViewGroup
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jordangellatly.coopervision.R
-import com.jordangellatly.coopervision.models.Chemicals
+import com.jordangellatly.coopervision.models.Chemical
 import kotlinx.android.synthetic.main.fragment_edit.*
 import org.parceler.Parcels
 import java.util.*
 
 class EditFragment : Fragment() {
     private lateinit var myRef: DatabaseReference
-    private lateinit var chemicalFromIntent: Chemicals
+    private lateinit var chemicalFromIntent: Chemical
     private lateinit var bundleFromListActivity: Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val database = FirebaseDatabase.getInstance()
         myRef = database.getReference("chemicals")
-        chemicalFromIntent = Parcels.unwrap<Chemicals>(activity!!.intent.getParcelableExtra<Parcelable>("chemical"))
+        chemicalFromIntent = Parcels.unwrap<Chemical>(activity!!.intent.getParcelableExtra<Parcelable>("chemical"))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

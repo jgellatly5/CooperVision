@@ -14,7 +14,7 @@ import android.widget.Toast
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jordangellatly.coopervision.R
-import com.jordangellatly.coopervision.models.Chemicals
+import com.jordangellatly.coopervision.models.Chemical
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.parceler.Parcels
 
@@ -84,7 +84,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun removeChemical() {
-        val chemical = Parcels.unwrap<Chemicals>(intent.getParcelableExtra<Parcelable>("chemical"))
+        val chemical = Parcels.unwrap<Chemical>(intent.getParcelableExtra<Parcelable>("chemical"))
         myRef.child(chemical.id.toString()).removeValue()
         val returnIntent = Intent()
         bundle.putString("intent", "remove")

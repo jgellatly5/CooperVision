@@ -9,15 +9,15 @@ import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import com.jordangellatly.coopervision.R
-import com.jordangellatly.coopervision.models.Chemicals
+import com.jordangellatly.coopervision.models.Chemical
 import java.util.*
 
 class ChemicalAdapter(
-        private val mChemicals: MutableList<Chemicals>,
+        private val mChemicals: MutableList<Chemical>,
         private val listener: ChemicalAdapterListener
 ) : RecyclerView.Adapter<ChemicalAdapter.ViewHolder>(), Filterable {
     var colorChoice: Int = 0
-    private var mChemicalsFiltered: MutableList<Chemicals>
+    private var mChemicalsFiltered: MutableList<Chemical>
     init {
         mChemicalsFiltered = mChemicals
     }
@@ -60,7 +60,7 @@ class ChemicalAdapter(
             mChemicalsFiltered = if (charSequence.isEmpty()) {
                 mChemicals
             } else {
-                val filteredList = ArrayList<Chemicals>()
+                val filteredList = ArrayList<Chemical>()
                 for (row in mChemicals) {
                     if (row.materialName.toLowerCase().startsWith(charSequence)) {
                         filteredList.add(row)
@@ -74,13 +74,13 @@ class ChemicalAdapter(
         }
 
         override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-            mChemicalsFiltered = filterResults.values as ArrayList<Chemicals>
+            mChemicalsFiltered = filterResults.values as ArrayList<Chemical>
             notifyDataSetChanged()
         }
     }
 
     interface ChemicalAdapterListener {
-        fun onChemicalSelected(chemicals: Chemicals, position: Int)
+        fun onChemicalSelected(chemical: Chemical, position: Int)
     }
 
     fun removeAt(position: Int) {

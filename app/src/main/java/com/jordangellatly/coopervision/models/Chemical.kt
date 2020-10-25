@@ -5,7 +5,7 @@ import paperparcel.PaperParcel
 import paperparcel.PaperParcelable
 
 @PaperParcel
-data class Chemicals(
+data class Chemical(
     val bottleCount: Long = 0,
     val id: Long = 0,
     val casNumber: String = "",
@@ -47,12 +47,12 @@ data class Chemicals(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Chemicals> {
-        override fun createFromParcel(parcel: android.os.Parcel): Chemicals {
-            return Chemicals(parcel)
+    companion object CREATOR : Parcelable.Creator<Chemical> {
+        override fun createFromParcel(parcel: android.os.Parcel): Chemical {
+            return Chemical(parcel)
         }
 
-        override fun newArray(size: Int): Array<Chemicals?> {
+        override fun newArray(size: Int): Array<Chemical?> {
             return arrayOfNulls(size)
         }
     }
