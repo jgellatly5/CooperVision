@@ -57,13 +57,12 @@ class ChemicalAdapter(
 
     override fun getFilter(): Filter = object : Filter() {
         override fun performFiltering(charSequence: CharSequence): FilterResults {
-            val charString = charSequence.toString()
-            mChemicalsFiltered = if (charString.isEmpty()) {
+            mChemicalsFiltered = if (charSequence.isEmpty()) {
                 mChemicals
             } else {
                 val filteredList = ArrayList<Chemicals>()
                 for (row in mChemicals) {
-                    if (row.materialName.toLowerCase().startsWith(charString.toLowerCase())) {
+                    if (row.materialName.toLowerCase().startsWith(charSequence)) {
                         filteredList.add(row)
                     }
                 }
