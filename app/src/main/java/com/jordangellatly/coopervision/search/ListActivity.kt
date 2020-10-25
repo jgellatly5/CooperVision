@@ -40,7 +40,7 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
 
         chemicalAdapter = ChemicalAdapter(chemicalArrayList, this@ListActivity)
 
-        fab.setOnClickListener { addChemical() }
+        fab.setOnClickListener { createChemical() }
 
         fetchListData()
     }
@@ -98,12 +98,14 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
         }
     }
 
-    private fun addChemical() {
-        val intent = Intent(this@ListActivity, CreateActivity::class.java)
-        val bundle = Bundle()
+    private fun createChemical() {
         val chemicals = chemicalArrayList[chemicalArrayList.size - 1]
-        bundle.putParcelable("lastChemical", Parcels.wrap(chemicals))
-        intent.putExtras(bundle)
+        val bundle = Bundle().apply {
+            putParcelable("lastChemical", Parcels.wrap(chemicals))
+        }
+        val intent = Intent(this@ListActivity, CreateActivity::class.java).apply {
+            putExtras(bundle)
+        }
         startActivity(intent)
     }
 
