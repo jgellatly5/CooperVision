@@ -12,51 +12,20 @@ import com.jordangellatly.coopervision.R
 import com.jordangellatly.coopervision.models.Chemicals
 import java.util.*
 
-class ChemicalAdapter(private val mChemicals: MutableList<Chemicals>, private val listener: ChemicalAdapterListener) : RecyclerView.Adapter<ChemicalAdapter.ViewHolder>(), Filterable {
-    private val TAG = "ChemicalAdapter"
+class ChemicalAdapter(
+        private val mChemicals: MutableList<Chemicals>,
+        private val listener: ChemicalAdapterListener
+) : RecyclerView.Adapter<ChemicalAdapter.ViewHolder>(), Filterable {
     var colorChoice: Int = 0
     private var mChemicalsFiltered: MutableList<Chemicals>
-
     init {
-        this.mChemicalsFiltered = mChemicals
-    }
-
-    override fun getFilter(): Filter {
-        return object : Filter() {
-            override fun performFiltering(charSequence: CharSequence): Filter.FilterResults {
-                val charString = charSequence.toString()
-                if (charString.isEmpty()) {
-                    mChemicalsFiltered = mChemicals
-                } else {
-                    val filteredList = ArrayList<Chemicals>()
-                    for (row in mChemicals) {
-                        if (row.materialName.toLowerCase().startsWith(charString.toLowerCase())) {
-                            filteredList.add(row)
-                        }
-                    }
-                    mChemicalsFiltered = filteredList
-                }
-                val filterResults = Filter.FilterResults()
-                filterResults.values = mChemicalsFiltered
-                return filterResults
-            }
-
-            override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
-                mChemicalsFiltered = filterResults.values as ArrayList<Chemicals>
-                notifyDataSetChanged()
-            }
-        }
+        mChemicalsFiltered = mChemicals
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val mChemicalName: TextView
-        val mImage: ImageView
-
+        val mChemicalName: TextView = itemView.findViewById(R.id.chemical_name)
+        val mImage: ImageView = itemView.findViewById(R.id.logo)
         init {
-
-            mChemicalName = itemView.findViewById(R.id.chemical_name)
-            mImage = itemView.findViewById(R.id.logo)
             itemView.setOnClickListener {
                 val position = adapterPosition
                 listener.onChemicalSelected(mChemicalsFiltered[position], position)
@@ -65,15 +34,13 @@ class ChemicalAdapter(private val mChemicals: MutableList<Chemicals>, private va
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChemicalAdapter.ViewHolder {
-        val context = parent.context
-        val inflater = LayoutInflater.from(context)
-        val chemicalView = inflater.inflate(R.layout.item_chemical, parent, false)
+        val chemicalView =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_chemical, parent, false)
         return ViewHolder(chemicalView)
     }
 
     override fun onBindViewHolder(holder: ChemicalAdapter.ViewHolder, position: Int) {
         val chemicals = mChemicalsFiltered[position]
-
         val length = 4
         colorChoice = position % length
         when (colorChoice) {
@@ -86,8 +53,31 @@ class ChemicalAdapter(private val mChemicals: MutableList<Chemicals>, private va
         chemicalName.text = chemicals.materialName
     }
 
-    override fun getItemCount(): Int {
-        return mChemicalsFiltered.size
+    override fun getItemCount(): Int = mChemicalsFiltered.size
+
+    override fun getFilter(): Filter = object : Filter() {
+        override fun performFiltering(charSequence: CharSequence): FilterResults {
+            val charString = charSequence.toString()
+            mChemicalsFiltered = if (charString.isEmpty()) {
+                mChemicals
+            } else {
+                val filteredList = ArrayList<Chemicals>()
+                for (row in mChemicals) {
+                    if (row.materialName.toLowerCase().startsWith(charString.toLowerCase())) {
+                        filteredList.add(row)
+                    }
+                }
+                filteredList
+            }
+            val filterResults = FilterResults()
+            filterResults.values = mChemicalsFiltered
+            return filterResults
+        }
+
+        override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+            mChemicalsFiltered = filterResults.values as ArrayList<Chemicals>
+            notifyDataSetChanged()
+        }
     }
 
     interface ChemicalAdapterListener {
