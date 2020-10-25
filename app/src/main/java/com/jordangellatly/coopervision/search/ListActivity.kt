@@ -124,12 +124,12 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
-        val mSearchMenuItem = menu.findItem(R.id.menu_toolbarsearch)
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = mSearchMenuItem.actionView as SearchView
-        searchView.queryHint = "Enter Chemical Name"
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView.maxWidth = Integer.MAX_VALUE
+        val searchView = (menu.findItem(R.id.menu_toolbarsearch).actionView as SearchView).apply {
+            queryHint = "Enter Chemical Name"
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            maxWidth = Integer.MAX_VALUE
+        }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
@@ -170,15 +170,17 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val position = data!!.getIntExtra("position", -1)
-            val stringExtra = data.getStringExtra("intent")
-            if (stringExtra == "remove") {
-                chemicalAdapter.removeAt(position)
-            }
-            if (stringExtra == "update") {
-                progress_bar.visibility = ProgressBar.VISIBLE
-                chemicalAdapter.update()
-                fetchListData()
+            val stringExtra = data?.getStringExtra("intent")
+            when (stringExtra) {
+                "update" -> {
+                    progress_bar.visibility = ProgressBar.VISIBLE
+                    chemicalAdapter.update()
+                    fetchListData()
+                }
+                "remove" -> {
+                    val position = data?.getIntExtra("position", -1)
+                    chemicalAdapter.removeAt(position)
+                }
             }
         }
     }
