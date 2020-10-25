@@ -22,30 +22,27 @@ import org.parceler.Parcels
 import java.util.*
 
 class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListener {
-
-    private val TAG = "ListActivity"
     private val REQUEST_CODE = 1
     private val chemicalArrayList = ArrayList<Chemicals>()
-    private lateinit var adapter: ChemicalAdapter
+    private lateinit var chemicalAdapter: ChemicalAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        initWidgets()
-
-        fetchListData()
-
-        fab.setOnClickListener { v -> addChemical() }
-    }
-
-    private fun initWidgets() {
         setSupportActionBar(toolbar_search)
-        val actionBar = supportActionBar
-        actionBar!!.setDisplayHomeAsUpEnabled(true)
-        actionBar.title = ""
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = ""
+        }
         tv_empty_list.visibility = View.INVISIBLE
         progress_bar.visibility = ProgressBar.VISIBLE
+
+        chemicalAdapter = ChemicalAdapter(chemicalArrayList, this@ListActivity)
+
+        fab.setOnClickListener { addChemical() }
+
+        fetchListData()
     }
 
     private fun fetchListData() {
@@ -115,9 +112,11 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
         if (chemicals != null) {
             chemicalArrayList.add(chemicals)
         }
-        adapter = ChemicalAdapter(chemicalArrayList, this@ListActivity)
-        chemical_list.adapter = adapter
-        chemical_list.layoutManager = LinearLayoutManager(this@ListActivity)
+
+        chemical_list.apply {
+            adapter = chemicalAdapter
+            layoutManager = LinearLayoutManager(this@ListActivity)
+        }
         progress_bar.visibility = ProgressBar.INVISIBLE
     }
 
@@ -136,8 +135,8 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
             }
 
             override fun onQueryTextChange(s: String): Boolean {
-                adapter.filter.filter(s)
-                if (adapter.itemCount == 0) {
+                chemicalAdapter.filter.filter(s)
+                if (chemicalAdapter.itemCount == 0) {
                     tv_empty_list.visibility = View.VISIBLE
                 } else {
                     tv_empty_list.visibility = View.INVISIBLE
@@ -157,24 +156,26 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
     }
 
     override fun onChemicalSelected(chemicals: Chemicals, position: Int) {
-        val intent = Intent(this@ListActivity, DetailActivity::class.java)
-        val bundle = Bundle()
-        bundle.putInt("position", position)
-        bundle.putParcelable("chemical", Parcels.wrap(chemicals))
-        intent.putExtras(bundle)
+        val bundle = Bundle().apply {
+            putInt("position", position)
+            putParcelable("chemical", Parcels.wrap(chemicals))
+        }
+        val intent = Intent(this@ListActivity, DetailActivity::class.java).apply {
+            putExtras(bundle)
+        }
         startActivityForResult(intent, REQUEST_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val position = data!!.getIntExtra("position", -1)
-            val stringExtra = data!!.getStringExtra("intent")
+            val stringExtra = data.getStringExtra("intent")
             if (stringExtra == "remove") {
-                adapter.removeAt(position)
+                chemicalAdapter.removeAt(position)
             }
             if (stringExtra == "update") {
                 progress_bar.visibility = ProgressBar.VISIBLE
-                adapter.update()
+                chemicalAdapter.update()
                 fetchListData()
             }
         }
