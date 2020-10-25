@@ -17,14 +17,16 @@ import org.parceler.Parcels
 class DetailFragment : Fragment() {
     private lateinit var chemicalFromIntent: Chemical
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
-    }
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_detail, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initImageColor()
-        chemicalFromIntent = Parcels.unwrap<Chemical>(activity!!.intent.getParcelableExtra<Parcelable>("chemical"))
+        chemicalFromIntent = Parcels.unwrap(activity!!.intent.getParcelableExtra("chemical"))
         tv_name.text = chemicalFromIntent.materialName
         tv_location_value.text = chemicalFromIntent.locationInLab
         tv_rec_date_value.text = chemicalFromIntent.receiveDate
@@ -38,9 +40,10 @@ class DetailFragment : Fragment() {
 
     @OnClick(R.id.btn_request)
     fun requestPurchase() {
-        val intentRequest = Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "jgellatly5@gmail.com", null))
-        intentRequest.putExtra(Intent.EXTRA_SUBJECT, "Request Order for: " + chemicalFromIntent.materialName)
-        intentRequest.putExtra(Intent.EXTRA_TEXT, "Please place an order for this chemical: " + chemicalFromIntent.materialName)
+        val intentRequest = Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "jgellatly5@gmail.com", null)).apply {
+            putExtra(Intent.EXTRA_SUBJECT, "Request Order for: " + chemicalFromIntent.materialName)
+            putExtra(Intent.EXTRA_TEXT, "Please place an order for this chemical: " + chemicalFromIntent.materialName)
+        }
         startActivity(Intent.createChooser(intentRequest, "Please choose an email client..."))
         activity!!.finish()
     }
@@ -48,9 +51,7 @@ class DetailFragment : Fragment() {
     private fun initImageColor() {
         val bundle = activity!!.intent.extras
         val length = 4
-        val colorChoice = bundle!!.getInt("position") % length
-
-        when (colorChoice) {
+        when (bundle!!.getInt("position") % length) {
             0 -> {
                 image.setImageResource(R.drawable.cooper_drop_orange)
                 btn_request.setBackgroundResource(R.drawable.button_orange)
