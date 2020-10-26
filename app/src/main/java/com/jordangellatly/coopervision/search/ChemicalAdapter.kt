@@ -16,7 +16,6 @@ class ChemicalAdapter(
         private val mChemicals: MutableList<Chemical>,
         private val listener: ChemicalAdapterListener
 ) : RecyclerView.Adapter<ChemicalAdapter.ViewHolder>(), Filterable {
-    var colorChoice: Int = 0
     private var mChemicalsFiltered: MutableList<Chemical>
     init {
         mChemicalsFiltered = mChemicals
@@ -40,17 +39,15 @@ class ChemicalAdapter(
     }
 
     override fun onBindViewHolder(holder: ChemicalAdapter.ViewHolder, position: Int) {
-        val chemicals = mChemicalsFiltered[position]
-        val length = 4
-        colorChoice = position % length
-        when (colorChoice) {
+        val chemical = mChemicalsFiltered[position]
+        when (position % COLOR_SELECTIONS) {
             0 -> holder.mImage.setImageResource(R.drawable.cooper_drop_orange)
             1 -> holder.mImage.setImageResource(R.drawable.cooper_drop_cyan)
             2 -> holder.mImage.setImageResource(R.drawable.cooper_drop_red)
             3 -> holder.mImage.setImageResource(R.drawable.cooper_drop_purple)
         }
         val chemicalName = holder.mChemicalName
-        chemicalName.text = chemicals.materialName
+        chemicalName.text = chemical.materialName
     }
 
     override fun getItemCount(): Int = mChemicalsFiltered.size
@@ -92,5 +89,9 @@ class ChemicalAdapter(
     fun update() {
         mChemicalsFiltered.clear()
         notifyDataSetChanged()
+    }
+
+    companion object {
+        private const val COLOR_SELECTIONS = 4
     }
 }

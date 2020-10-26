@@ -177,7 +177,7 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
                     fetchListData()
                 }
                 "remove" -> {
-                    val position = data?.getIntExtra("position", -1)
+                    val position = data.getIntExtra("position", -1)
                     chemicalAdapter.removeAt(position)
                 }
             }
