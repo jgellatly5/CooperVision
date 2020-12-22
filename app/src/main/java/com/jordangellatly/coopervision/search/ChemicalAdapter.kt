@@ -17,6 +17,7 @@ class ChemicalAdapter(
         private val listener: ChemicalAdapterListener
 ) : RecyclerView.Adapter<ChemicalAdapter.ViewHolder>(), Filterable {
     private var mChemicalsFiltered: MutableList<Chemical>
+
     init {
         mChemicalsFiltered = mChemicals
     }
@@ -24,6 +25,7 @@ class ChemicalAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val mChemicalName: TextView = itemView.findViewById(R.id.chemical_name)
         val mImage: ImageView = itemView.findViewById(R.id.logo)
+
         init {
             itemView.setOnClickListener {
                 val position = adapterPosition
@@ -59,7 +61,7 @@ class ChemicalAdapter(
             } else {
                 val filteredList = ArrayList<Chemical>()
                 for (row in mChemicals) {
-                    if (row.materialName.toLowerCase().startsWith(charSequence)) {
+                    if (row.materialName.toLowerCase(Locale.ROOT).startsWith(charSequence)) {
                         filteredList.add(row)
                     }
                 }

@@ -3,12 +3,10 @@ package com.jordangellatly.coopervision.details
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.OnClick
 import com.jordangellatly.coopervision.R
 import com.jordangellatly.coopervision.models.Chemical
 import kotlinx.android.synthetic.main.fragment_detail.*
@@ -26,32 +24,34 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initImageColor()
-        chemicalFromIntent = Parcels.unwrap(activity!!.intent.getParcelableExtra("chemical"))
+        chemicalFromIntent = Parcels.unwrap(requireActivity().intent.getParcelableExtra("chemical"))
         tv_name.text = chemicalFromIntent.materialName
         tv_location_value.text = chemicalFromIntent.locationInLab
         tv_rec_date_value.text = chemicalFromIntent.receiveDate
         tv_exp_date_value.text = chemicalFromIntent.expirationDate
         tv_lot_order_value.text = chemicalFromIntent.lotOrderNumber
-        tv_bottle_count_value.text = chemicalFromIntent.bottleCount!!.toString()
+        tv_bottle_count_value.text = chemicalFromIntent.bottleCount.toString()
         tv_cas_number_value.text = chemicalFromIntent.casNumber
         tv_manufacturer_value.text = chemicalFromIntent.manufacturer
         tv_type_value.text = chemicalFromIntent.type
+        btn_request.setOnClickListener {
+            requestPurchase()
+        }
     }
 
-    @OnClick(R.id.btn_request)
-    fun requestPurchase() {
+    private fun requestPurchase() {
         val intentRequest = Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "jgellatly5@gmail.com", null)).apply {
             putExtra(Intent.EXTRA_SUBJECT, "Request Order for: " + chemicalFromIntent.materialName)
             putExtra(Intent.EXTRA_TEXT, "Please place an order for this chemical: " + chemicalFromIntent.materialName)
         }
         startActivity(Intent.createChooser(intentRequest, "Please choose an email client..."))
-        activity!!.finish()
+        requireActivity().finish()
     }
 
     private fun initImageColor() {
-        val bundle = activity!!.intent.extras
+        val bundle = requireActivity().intent.extras
         val length = 4
-        when (bundle!!.getInt("position") % length) {
+        when (bundle?.getInt("position")?.rem(length)) {
             0 -> {
                 image.setImageResource(R.drawable.cooper_drop_orange)
                 btn_request.setBackgroundResource(R.drawable.button_orange)
@@ -72,9 +72,9 @@ class DetailFragment : Fragment() {
     }
 
     companion object {
-        private val TAG = "DetailFragment"
-        private val ARG_PARAM1 = "int"
-        private val ARG_PARAM2 = "title"
+        private const val TAG = "DetailFragment"
+        private const val ARG_PARAM1 = "int"
+        private const val ARG_PARAM2 = "title"
 
         fun newInstance(title: String, page: Int): DetailFragment {
             val fragment = DetailFragment()

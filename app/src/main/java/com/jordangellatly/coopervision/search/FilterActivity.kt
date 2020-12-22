@@ -24,9 +24,9 @@ class FilterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         location_selection.onItemSelectedListener = this
 
         intentWithFilter = Intent(this@FilterActivity, ListActivity::class.java)
-        btn_search.setOnClickListener { v -> startActivity(intentWithFilter) }
+        btn_search.setOnClickListener { startActivity(intentWithFilter) }
         val intentSearchAll = Intent(this@FilterActivity, ListActivity::class.java)
-        btn_search_all.setOnClickListener { v -> startActivity(intentSearchAll) }
+        btn_search_all.setOnClickListener { startActivity(intentSearchAll) }
     }
 
     override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {

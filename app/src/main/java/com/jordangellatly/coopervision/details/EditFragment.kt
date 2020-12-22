@@ -3,7 +3,6 @@ package com.jordangellatly.coopervision.details
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,18 +24,20 @@ class EditFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val database = FirebaseDatabase.getInstance()
         myRef = database.getReference("chemicals")
-        chemicalFromIntent = Parcels.unwrap<Chemical>(activity!!.intent.getParcelableExtra<Parcelable>("chemical"))
+        chemicalFromIntent = Parcels.unwrap(requireActivity().intent.getParcelableExtra("chemical"))
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_edit, container, false)
-    }
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_edit, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initImageColor()
 
-        btn_update.setOnClickListener { v -> update() }
+        btn_update.setOnClickListener { update() }
 
         et_name.setText(chemicalFromIntent.materialName)
         et_location_value.setText(chemicalFromIntent.locationInLab)
@@ -50,10 +51,9 @@ class EditFragment : Fragment() {
     }
 
     private fun initImageColor() {
-        bundleFromListActivity = activity!!.intent.extras
+        bundleFromListActivity = requireActivity().intent.extras
         val length = 4
-        val colorChoice = bundleFromListActivity.getInt("position") % length
-        when (colorChoice) {
+        when (bundleFromListActivity.getInt("position") % length) {
             0 -> {
                 image.setImageResource(R.drawable.cooper_drop_orange)
                 btn_update.setBackgroundResource(R.drawable.button_orange)
@@ -86,17 +86,18 @@ class EditFragment : Fragment() {
         chemicalUpdates["type"] = et_type_value.text.toString()
         myRef.child(chemicalFromIntent.id.toString()).updateChildren(chemicalUpdates)
 
-        val backToListIntent = Intent()
         bundleFromListActivity.putString("intent", "update")
-        backToListIntent.putExtras(bundleFromListActivity)
-        activity!!.setResult(Activity.RESULT_OK, backToListIntent)
-        activity!!.finish()
+        val backToListIntent = Intent().apply {
+            putExtras(bundleFromListActivity)
+        }
+        requireActivity().setResult(Activity.RESULT_OK, backToListIntent)
+        requireActivity().finish()
     }
 
     companion object {
         private val TAG = "EditFragment"
-        private val ARG_PARAM1 = "int"
-        private val ARG_PARAM2 = "title"
+        private const val ARG_PARAM1 = "int"
+        private const val ARG_PARAM2 = "title"
 
         fun newInstance(title: String, page: Int): EditFragment {
             val fragment = EditFragment()

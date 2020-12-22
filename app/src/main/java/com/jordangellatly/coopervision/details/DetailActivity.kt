@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Parcelable
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -34,7 +33,7 @@ class DetailActivity : AppCompatActivity() {
 
         initToolbarColor()
 
-        detailPagerAdapter = DetailPagerAdapter(supportFragmentManager, this@DetailActivity)
+        detailPagerAdapter = DetailPagerAdapter(supportFragmentManager)
         view_pager.adapter = detailPagerAdapter
         tab_layout.setupWithViewPager(view_pager)
     }
@@ -77,14 +76,14 @@ class DetailActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this@DetailActivity)
         builder.setMessage("Are you sure you would like to remove this chemical from the inventory?")
                 .setTitle("Warning")
-                .setPositiveButton("Yes") { dialogInterface, i -> removeChemical() }
-                .setNegativeButton("No") { dialogInterface, i -> Toast.makeText(this@DetailActivity, "Cancel", Toast.LENGTH_SHORT).show() }
+                .setPositiveButton("Yes") { _, _ -> removeChemical() }
+                .setNegativeButton("No") { _, _ -> Toast.makeText(this@DetailActivity, "Cancel", Toast.LENGTH_SHORT).show() }
         val dialog = builder.create()
         dialog.show()
     }
 
     private fun removeChemical() {
-        val chemical = Parcels.unwrap<Chemical>(intent.getParcelableExtra<Parcelable>("chemical"))
+        val chemical = Parcels.unwrap<Chemical>(intent.getParcelableExtra("chemical"))
         myRef.child(chemical.id.toString()).removeValue()
         val returnIntent = Intent()
         bundle.putString("intent", "remove")

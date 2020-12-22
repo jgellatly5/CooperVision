@@ -22,7 +22,6 @@ import org.parceler.Parcels
 import java.util.*
 
 class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListener {
-    private val REQUEST_CODE = 1
     private val chemicalArrayList = ArrayList<Chemical>()
     private lateinit var chemicalAdapter: ChemicalAdapter
 
@@ -182,5 +181,9 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
                 }
             }
         }
+    }
+
+    companion object {
+        private const val REQUEST_CODE = 1
     }
 }
