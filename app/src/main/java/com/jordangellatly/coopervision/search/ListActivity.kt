@@ -5,20 +5,19 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
 import com.jordangellatly.coopervision.R
 import com.jordangellatly.coopervision.details.CreateActivity
 import com.jordangellatly.coopervision.details.DetailActivity
 import com.jordangellatly.coopervision.models.Chemical
 import kotlinx.android.synthetic.main.activity_list.*
-import org.parceler.Parcels
 import java.util.*
 
 class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListener {
@@ -100,7 +99,7 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
     private fun createChemical() {
         val chemicals = chemicalArrayList[chemicalArrayList.size - 1]
         val bundle = Bundle().apply {
-            putParcelable("lastChemical", Parcels.wrap(chemicals))
+            putParcelable("lastChemical", chemicals)
         }
         val intent = Intent(this@ListActivity, CreateActivity::class.java).apply {
             putExtras(bundle)
@@ -159,7 +158,7 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
     override fun onChemicalSelected(chemical: Chemical, position: Int) {
         val bundle = Bundle().apply {
             putInt("position", position)
-            putParcelable("chemical", Parcels.wrap(chemical))
+            putParcelable("chemical", chemical)
         }
         val intent = Intent(this@ListActivity, DetailActivity::class.java).apply {
             putExtras(bundle)
@@ -168,6 +167,7 @@ class ListActivity : AppCompatActivity(), ChemicalAdapter.ChemicalAdapterListene
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             when (data?.getStringExtra("intent")) {
                 "update" -> {

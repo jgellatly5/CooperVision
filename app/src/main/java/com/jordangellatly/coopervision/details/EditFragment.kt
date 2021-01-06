@@ -3,16 +3,15 @@ package com.jordangellatly.coopervision.details
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jordangellatly.coopervision.R
 import com.jordangellatly.coopervision.models.Chemical
 import kotlinx.android.synthetic.main.fragment_edit.*
-import org.parceler.Parcels
 import java.util.*
 
 class EditFragment : Fragment() {
@@ -24,7 +23,7 @@ class EditFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val database = FirebaseDatabase.getInstance()
         myRef = database.getReference("chemicals")
-        chemicalFromIntent = Parcels.unwrap(requireActivity().intent.getParcelableExtra("chemical"))
+        chemicalFromIntent = requireActivity().intent.getParcelableExtra("chemical")!!
     }
 
     override fun onCreateView(
@@ -51,7 +50,7 @@ class EditFragment : Fragment() {
     }
 
     private fun initImageColor() {
-        bundleFromListActivity = requireActivity().intent.extras
+        bundleFromListActivity = requireActivity().intent.extras!!
         val length = 4
         when (bundleFromListActivity.getInt("position") % length) {
             0 -> {

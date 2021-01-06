@@ -5,21 +5,20 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.jordangellatly.coopervision.R
 import com.jordangellatly.coopervision.models.Chemical
 import kotlinx.android.synthetic.main.activity_detail.*
-import org.parceler.Parcels
 
 class DetailActivity : AppCompatActivity() {
     private var colorChoice: Int = 0
-    private lateinit var detailPagerAdapter: FragmentPagerAdapter
+    private lateinit var detailPagerAdapter: DetailPagerAdapter
     private lateinit var bundle: Bundle
     private lateinit var myRef: DatabaseReference
 
@@ -33,9 +32,14 @@ class DetailActivity : AppCompatActivity() {
 
         initToolbarColor()
 
-        detailPagerAdapter = DetailPagerAdapter(supportFragmentManager)
+        detailPagerAdapter = DetailPagerAdapter(this@DetailActivity)
         view_pager.adapter = detailPagerAdapter
-        tab_layout.setupWithViewPager(view_pager)
+        TabLayoutMediator(tab_layout, view_pager) { tab, position ->
+            when (position) {
+                0 -> tab.text = "Details"
+                else -> tab.text = "Edit"
+            }
+        }.attach()
     }
 
     private fun initToolbarColor() {
@@ -52,7 +56,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setDetailTheme() {
-        bundle = intent.extras
+        bundle = intent.extras!!
         val length = 4
         colorChoice = bundle.getInt("position") % length
         when (colorChoice) {
@@ -83,8 +87,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun removeChemical() {
-        val chemical = Parcels.unwrap<Chemical>(intent.getParcelableExtra("chemical"))
-        myRef.child(chemical.id.toString()).removeValue()
+        val chemical: Chemical? = intent.getParcelableExtra("chemical")
+        myRef.child(chemical!!.id.toString()).removeValue()
         val returnIntent = Intent()
         bundle.putString("intent", "remove")
         returnIntent.putExtras(bundle)

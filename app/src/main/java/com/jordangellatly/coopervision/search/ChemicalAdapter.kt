@@ -1,6 +1,6 @@
 package com.jordangellatly.coopervision.search
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,7 +61,7 @@ class ChemicalAdapter(
             } else {
                 val filteredList = ArrayList<Chemical>()
                 for (row in mChemicals) {
-                    if (row.materialName.toLowerCase(Locale.ROOT).startsWith(charSequence)) {
+                    if (row.materialName?.toLowerCase(Locale.ROOT)!!.startsWith(charSequence)) {
                         filteredList.add(row)
                     }
                 }

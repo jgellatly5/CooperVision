@@ -3,14 +3,13 @@ package com.jordangellatly.coopervision.details
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.jordangellatly.coopervision.R
 import com.jordangellatly.coopervision.models.Chemical
 import kotlinx.android.synthetic.main.fragment_detail.*
-import org.parceler.Parcels
 
 class DetailFragment : Fragment() {
     private lateinit var chemicalFromIntent: Chemical
@@ -24,7 +23,7 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initImageColor()
-        chemicalFromIntent = Parcels.unwrap(requireActivity().intent.getParcelableExtra("chemical"))
+        chemicalFromIntent = requireActivity().intent.getParcelableExtra("chemical")!!
         tv_name.text = chemicalFromIntent.materialName
         tv_location_value.text = chemicalFromIntent.locationInLab
         tv_rec_date_value.text = chemicalFromIntent.receiveDate
