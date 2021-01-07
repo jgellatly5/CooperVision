@@ -9,6 +9,7 @@
     <string name="cas_number">CAS Number: </string>
     <string name="manufacturer">Manufacturer: </string>
     <string name="type">Type: </string>
+    <string name="name">Name</string>
 
     <string-array name="locations_array">
         <item>Freezer</item>
